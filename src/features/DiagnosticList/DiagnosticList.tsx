@@ -14,7 +14,7 @@ const diagnostics: Diagnostic[] = [
 
 const DiagnosticList: React.FC = () => {
   return (
-    <div className="border rounded shadow p-4">
+    <div className="border rounded shadow p-4 bg-white">
       <div className="mb-4">
         <h2 className="text-lg font-semibold">Diagnostic List</h2>
       </div>
@@ -22,7 +22,7 @@ const DiagnosticList: React.FC = () => {
         <table className="min-w-full border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-200 p-2 w-[150px] text-left">Problem/Diagnosis</th>
+              <th className="border border-gray-200 p-2 min-w-[160px] text-left">Problem/Diagnosis</th>
               <th className="border border-gray-200 p-2 text-left">Description</th>
               <th className="border border-gray-200 p-2 w-[100px] text-left">Status</th>
             </tr>

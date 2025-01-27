@@ -15,7 +15,7 @@ const labResults: LabResult[] = [
 
 const LabResults: React.FC = () => {
   return (
-    <div className="border rounded shadow p-4">
+    <div className="border rounded shadow p-4 bg-white">
       <div className="mb-4">
         <h2 className="text-lg font-semibold">Lab Results</h2>
       </div>

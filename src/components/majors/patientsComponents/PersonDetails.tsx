@@ -1,5 +1,5 @@
 
-import { Menu, NotebookTabs } from "lucide-react";
+import { ArrowLeft, Menu, NotebookTabs } from "lucide-react";
 import { Button } from "../../buttons/Button";
 import { Avatar, AvatarFallback, AvatarImage } from "../../Avatars/Avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "../../cards/Card";
@@ -36,10 +36,10 @@ export default function PersonDetails({
 }: PersonDetailsProps) {
   if (!person) {
     return (
-      <div className="h-full flex items-center justify-center bg-[#d7eef8]">
-        <Button variant="outline" className="md:hidden mb-4 flex items-center text-lg rounded-full bg-[#56bbe3] hover:bg-gray-100 text-white hover:text-gray-500" onClick={toggleSidebar}>
-          <NotebookTabs className="h-9 w-9 mr-2 text-white hover:text-gray-500" />
-          <span className="text-white hover:text-gray-500">Select a person</span>
+      <div className="h-full flex items-center justify-center bg-[#d7eef8] md:bg-transparent">
+        <Button variant="outline" className="md:hidden mb-4 flex items-center text-lg rounded-full bg-[#56bbe3] hover:bg-[#2baadc] text-white" onClick={toggleSidebar}>
+          <NotebookTabs className="h-9 w-9 mr-2 text-white hover:text-white" />
+          <span className="text-white hover:text-white">Select a person</span>
         </Button>
       </div>
     );
@@ -48,8 +48,8 @@ export default function PersonDetails({
   return (
     <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-[4rem] md:pb-[7.5rem]">
       <div className="flex justify-between items-center">
-        <Button variant="outline" className="md:hidden flex items-center" onClick={toggleSidebar}>
-          <Menu className="h-4 w-4 mr-2" />
+        <Button variant="outline" className="md:hidden flex items-center gap-3 bg-white" onClick={toggleSidebar}>
+          <ArrowLeft className="h-5 w-5" />
           People List
         </Button>
         <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto text-sm rounded-full">
@@ -57,8 +57,8 @@ export default function PersonDetails({
         </Button>
       </div>
 
-      <div className="flex gap-3 md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
-        <Avatar className="h-20 w-20">
+      <div className="flex gap-3 md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 bg-[#d7eef8]">
+        <Avatar className="h-20 w-20 ">
           <AvatarImage src={person.photo} alt={person.name} />
           <AvatarFallback>
             {person.name
