@@ -5,7 +5,7 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string }> =
   className,
 }) => {
   return (
-    <div className={`border rounded-lg shadow-sm ${className}`}>
+    <div className={`border rounded-lg shadow-sm bg-white ${className}`}>
       {children}
     </div>
   );
