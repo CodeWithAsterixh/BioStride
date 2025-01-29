@@ -1,26 +1,31 @@
-// import React from 'react';
+import React from 'react';
 
-// interface ChartContainerProps {
-//   config: {
-//     systolic: {
-//       label: string;
-//       color: string;
-//     };
-//     diastolic: {
-//       label: string;
-//       color: string;
-//     };
-//   };
-//   className?: string;
-//   children: React.ReactNode;
-// }
+interface ChartConfig {
+  [key: string]: {
+    label: string;
+    color: string;
+  };
+}
 
-// export const ChartContainer: React.FC<ChartContainerProps> = ({ config, className, children }) => (
-//   <div className={`flex flex-col ${className}`}>
-//     <div className="flex justify-between pr-2">
-//       <div style={{ color: config.systolic.color }}>{config.systolic.label}</div>
-//       <div style={{ color: config.diastolic.color }}>{config.diastolic.label}</div>
-//     </div>
-//     {children}
-//   </div>
-// );
+interface ChartContainerProps {
+  config: ChartConfig;
+  className?: string;
+  children: React.ReactNode;
+}
+
+export const ChartContainer: React.FC<ChartContainerProps> = ({ config, className, children }) => {
+  return (
+    <div className={className}>
+      {/* Example: Render a legend using the config */}
+      <div className="flex space-r-4 mb-4">
+        {Object.entries(config).map(([key, { label, color }]) => (
+          <div key={key} className="flex items-center">
+            <div className="w-4 h-4 mx-2" style={{ backgroundColor: color }}></div>
+            <span>{label}</span>
+          </div>
+        ))}
+      </div>
+      {children}
+    </div>
+  );
+};
