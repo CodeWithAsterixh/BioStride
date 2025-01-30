@@ -13,10 +13,11 @@ import {
   NotFoundPage,
   Root,
   MainLayout,
+  PatientsLayout,
   Home,
   Patients,
 } from "./App";
-import PatientsLayout from "./Layouts/PagesLayout/Patients";
+// import PatientsLayout from "./Layouts/PagesLayout/PatientsLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
