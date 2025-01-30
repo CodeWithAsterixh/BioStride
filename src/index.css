@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  --primary: #56bbe3;
+  --primary-dark: #00b2cb;
+}
 body {
   margin: 0;
   display: flex;

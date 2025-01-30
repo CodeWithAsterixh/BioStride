@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
 import {
   AlignRight,
-  EllipsisVertical,
-  Settings,
-  X,
-  Home,
-  User,
   Calendar,
-  MessageSquare,
   CreditCard,
+  EllipsisVertical,
+  Home,
+  MessageSquare,
+  Settings,
+  User,
+  X,
 } from "lucide-react";
+import React, { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { useOpenPeopleList } from './../../utils/useOpenPeopleList';
 
 const linkClasses =
@@ -25,18 +25,16 @@ const Navbar: React.FC = () => {
     setIsOpen(!isOpen);
   };
 
+  const iconClass = "lg:size-[1.2rem] xl:size-[1.5rem]"
   const navLinks = [
-    { to: "/", label: "Overview", icon: <Home /> },
-    { to: "/patients", label: "Patients", icon: <User /> },
-    { to: "/schedule", label: "Schedule", icon: <Calendar /> },
-    { to: "/messages", label: "Messages", icon: <MessageSquare /> },
-    { to: "/transactions", label: "Transactions", icon: <CreditCard /> },
+    { to: "/", label: "Overview", icon: <Home className={iconClass}/> },
+    { to: "/patients", label: "Patients", icon: <User className={iconClass}/> },
+    { to: "/schedule", label: "Schedule", icon: <Calendar className={iconClass} /> },
+    { to: "/messages", label: "Messages", icon: <MessageSquare className={iconClass}/> },
+    { to: "/transactions", label: "Transactions", icon: <CreditCard className={iconClass} /> },
   ];
 
-  useEffect(() => {
-    console.log(navLinks[1].to)
-    console.log(location.pathname.includes(navLinks[1].to))
-  }, [location.pathname])
+
   
 
   return (
@@ -44,11 +42,11 @@ const Navbar: React.FC = () => {
       {/* Desktop Menu */}
       <nav className="py-2 md:py-2 lg:py-0 bg-white shadow-lg backdrop-blur-md w-full md:rounded-full overflow-hidden">
         <div className="px-4 lg:px-9 flex justify-between items-center w-full">
-          <header className="flex items-center text-2xl lg:text-3xl font-bold">
+          <header className="flex items-center text-2xl lg:text-3xl xl:text-[1rem] font-bold">
             <span className="text-primary">B</span>io<span className="text-primary">S</span>tride
           </header>
 
-          <ul className="hidden lg:flex items-center space-x-3 h-[4rem] text-[1rem] text-gray-600">
+          <ul className="hidden lg:flex items-center space-x-3 h-[4rem] text-[1rem] lg:text-[0.80rem] xl:text-[1rem] text-gray-600">
             {navLinks.map((link) => (
               <li key={link.to} className="relative group">
                 <Link
