@@ -3,9 +3,15 @@ import React, { useState } from "react";
 export interface Person {
   id: number;
   name: string;
+  photo: string;
   dob: string;
   gender: string;
-  photo: string;
+  contact?: string;
+  emergencyContact?: string;
+  insuranceProvider?: string;
+  respiratoryRate?: number | string;
+  temperature?: number | string;
+  heartRate?: number | string;
 }
 
 interface PeopleListProps {
@@ -53,7 +59,7 @@ const PeopleList: React.FC<PeopleListProps> = ({ onSelectPerson }) => {
             onClick={() => onSelectPerson(person)}
           >
             <div className="h-10 w-10 mr-3 rounded-full overflow-hidden flex items-center justify-center bg-gray-300">
-              {person.photo ? (
+              {person.photo && person.photo.trim() !== "" ?  (
                 <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
                     <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
                         <img src={person.photo} alt={person.name} className="h-full w-full object-cover" />
@@ -61,7 +67,7 @@ const PeopleList: React.FC<PeopleListProps> = ({ onSelectPerson }) => {
                 </div>
               ) : (
                 <span className="text-gray-500">
-                  {person.name
+                    {person.name
                     .split(" ")
                     .map((n) => n[0])
                     .join("")}

@@ -1,18 +1,20 @@
-import {useState} from 'react'
-import PeopleList, { Person } from '../components/majors/patientsComponents/PeopleList'
-import PersonDetails from '../components/majors/patientsComponents/PersonDetails'
+import { useState } from "react";
+import PeopleList, { Person } from "../components/majors/patientsComponents/PeopleList";
+import PersonDetails from "../components/majors/patientsComponents/PersonDetails";
+
 
 export default function Patients() {
-    const [selectedPerson, setSelectedPerson] = useState<Person>() // clear this comment when seen: updated the selectedPerson state type interface
-    const [showAllInfo, setShowAllInfo] = useState(false)
-    const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+  const [showAllInfo, setShowAllInfo] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+
   return (
     <div className="flex flex-col md:flex-row h-screen bg-gray-100">
       <div className={`md:w-1/4 border-r ${sidebarOpen ? "block" : "hidden md:block"}`}>
         <PeopleList
-          onSelectPerson={(person) => {
-            setSelectedPerson(person)
-            setSidebarOpen(false)
+          onSelectPerson={(person: Person) => {
+            setSelectedPerson(person);
+            setSidebarOpen(false);
           }}
         />
       </div>
@@ -25,5 +27,5 @@ export default function Patients() {
         />
       </div>
     </div>
-  )
+  );
 }

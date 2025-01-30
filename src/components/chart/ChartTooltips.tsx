@@ -1,28 +1,17 @@
 import React from 'react';
+import { TooltipProps } from 'recharts';
 
-interface ChartTooltipProps {
-  children: React.ReactNode;
-}
-
-export const ChartTooltips: React.FC<ChartTooltipProps> = ({ children }) => (
-  <div className="bg-white shadow-lg rounded pr-2">
-    {children}
-  </div>
-);
-
-interface ChartTooltipContentProps {
-  active: boolean;
-  payload: { value: { systolic: number; diastolic: number } }[];
-}
-
-export const ChartTooltipContent: React.FC<ChartTooltipContentProps> = ({ active, payload }) => {
+export const ChartTooltipContent: React.FC<TooltipProps<any, any>> = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
-    const { systolic, diastolic } = payload[0].value; // Extract systolic and diastolic from value
     return (
-      <ChartTooltips>
-        <div>Systolic: {systolic}</div>
-        <div>Diastolic: {diastolic}</div>
-      </ChartTooltips>
+      <div className="bg-white p-2 border border-gray-300 rounded shadow">
+        <p className="font-semibold">{label}</p>
+        {payload.map((entry, index) => (
+          <p key={index} style={{ color: entry.color }}>
+            {entry.name}: {entry.value}
+          </p>
+        ))}
+      </div>
     );
   }
 
