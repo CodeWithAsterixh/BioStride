@@ -1,20 +1,7 @@
 import { useState } from "react";
-import PeopleList from "../components/majors/patientsComponents/PeopleList";
+import PeopleList, { Person } from "../components/majors/patientsComponents/PeopleList";
 import PersonDetails from "../components/majors/patientsComponents/PersonDetails";
 
-type Person = {
-  id: number;
-  name: string;
-  photo: string;
-  dob: string;
-  gender: string;
-  contact?: string;
-  emergencyContact?: string;
-  insuranceProvider?: string;
-  respiratoryRate?: number | string;
-  temperature?: number | string;
-  heartRate?: number | string;
-}; // Match the type used in PeopleList
 
 export default function Patients() {
   const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);

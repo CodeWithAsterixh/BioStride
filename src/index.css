@@ -10,6 +10,19 @@ body {
   min-height: 100vh;
 }
 
-#root{
+#root {
   width: 100vw;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+  background-color: #9eccdf;
+}
+
+/* rechart pie focus */
+.recharts-layer.recharts-pie,
+.recharts-sector:focus {
+    outline: none !important;
+    outline-color: none;
+    outline-style: none;
+    outline-width: none;
 }
