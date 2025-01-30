@@ -34,7 +34,7 @@ const BloodPressureChart: React.FC = () => {
       className="h-[325px]"
     >
       <ResponsiveContainer width="100%" height={300} className='w-full flex-1'>
-        <AreaChart data={data} >
+        <AreaChart data={data} margin={{ top: 0, right: 0, left: -25, bottom: 0 }}>
           <XAxis dataKey="month" />
           <YAxis />
           <Tooltip content={<ChartTooltipContent />} />

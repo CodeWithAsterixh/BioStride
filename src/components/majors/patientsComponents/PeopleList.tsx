@@ -1,12 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-interface Person {
+export interface Person {
   id: number;
   name: string;
+  photo: string;
   dob: string;
   gender: string;
-  photo: string;
+  contact?: string;
+  emergencyContact?: string;
+  insuranceProvider?: string;
+  respiratoryRate?: number | string;
+  temperature?: number | string;
+  heartRate?: number | string;
 }
 
 // interface PeopleListProps {

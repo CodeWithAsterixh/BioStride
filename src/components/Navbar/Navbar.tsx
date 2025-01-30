@@ -42,10 +42,10 @@ const Navbar: React.FC = () => {
   return (
     <header className="z-[100] duration-300 w-full md:px-5 md:py-4 bg-[#f2f8fc]">
       {/* Desktop Menu */}
-      <nav className="py-2 md:py-0 bg-white shadow-lg backdrop-blur-md w-full lg:rounded-full overflow-hidden">
+      <nav className="py-2 md:py-2 lg:py-0 bg-white shadow-lg backdrop-blur-md w-full md:rounded-full overflow-hidden">
         <div className="px-4 lg:px-9 flex justify-between items-center w-full">
           <header className="flex items-center text-2xl lg:text-3xl font-bold">
-            <span className="text-[#56bbe3]">B</span>io<span className="text-[#56bbe3]">S</span>tride
+            <span className="text-primary">B</span>io<span className="text-primary">S</span>tride
           </header>
 
           <ul className="hidden lg:flex items-center space-x-3 h-[4rem] text-[1rem] text-gray-600">
@@ -54,9 +54,11 @@ const Navbar: React.FC = () => {
                 <Link
                   to={link.to}
                   className={`${
+
                     location.pathname === '/' && link.to==='/'?`${linkClasses} bg-[#56bbe3] text-white px-4 py-2 rounded-full flex items-end gap-2`:
                     location.pathname.includes(link.to)&&link.to!=='/'
                       ? `${linkClasses} bg-[#56bbe3] text-white px-4 py-2 rounded-full flex items-end gap-2`
+
                       : `${linkClasses} px-4 py-2 flex items-end gap-2`
                   }`}
                   onClick={() => setIsOpen(false)}
