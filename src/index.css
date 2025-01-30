@@ -26,3 +26,8 @@ body {
     outline-style: none;
     outline-width: none;
 }
+
+/* layer change */
+.recharts-surface{
+  width: 100% !important;
+}
