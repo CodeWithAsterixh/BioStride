@@ -31,10 +31,10 @@ const LabResults: React.FC = () => {
                 <p className="text-sm text-gray-500">{result.date}</p>
               </div>
               <button
-                className="flex items-center px-4 py-2 border rounded text-sm text-gray-700 hover:bg-gray-100"
+                className="flex items-center px-4 py-2 border border-[#56bbe3] rounded bg-opacity-90 bg-[#56bbe3] text-white hover:bg-[#2baadc]"
                 onClick={() => handleDownload(result.file)}
               >
-                <Download className="mr-2 h-4 w-4" />
+                <Download className="mr-2 h-6 w-6" />
                 Download
               </button>
             </li>

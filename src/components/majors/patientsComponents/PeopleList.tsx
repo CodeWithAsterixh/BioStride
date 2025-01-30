@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 export interface Person {
   id: number;
@@ -14,11 +15,11 @@ export interface Person {
   heartRate?: number | string;
 }
 
-interface PeopleListProps {
-  onSelectPerson: (person: Person) => void;
-}
+// interface PeopleListProps {
+//   onSelectPerson: (person: Person) => void;
+// }
 
-const people: Person[] = [
+export const people: Person[] = [
   { id: 1, name: "John Doe", dob: "1980-05-15", gender: "Male", photo: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" },
   { id: 2, name: "Jane Smith", dob: "1992-08-22", gender: "Female", photo: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" },
   { id: 3, name: "Bob Johnson", dob: "1975-11-30", gender: "Male", photo: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" },
@@ -33,7 +34,7 @@ const people: Person[] = [
   { id: 12, name: "Bob4 Johnson", dob: "1975-11-30", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
 ];
 
-const PeopleList: React.FC<PeopleListProps> = ({ onSelectPerson }) => {
+const PeopleList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
 
   const filteredPeople = people.filter((person) =>
@@ -53,10 +54,10 @@ const PeopleList: React.FC<PeopleListProps> = ({ onSelectPerson }) => {
       </div>
       <ul className="flex-1 overflow-auto">
         {filteredPeople.map((person) => (
-          <li
+          <Link
+            to={`/patients/${person.name}`}
             key={person.id}
             className="px-4 py-3 hover:bg-gray-200 cursor-pointer flex items-center"
-            onClick={() => onSelectPerson(person)}
           >
             <div className="h-10 w-10 mr-3 rounded-full overflow-hidden flex items-center justify-center bg-gray-300">
               {person.photo && person.photo.trim() !== "" ?  (
@@ -80,7 +81,7 @@ const PeopleList: React.FC<PeopleListProps> = ({ onSelectPerson }) => {
                 {person.dob} | {person.gender}
               </div>
             </div>
-          </li>
+          </Link>
         ))}
       </ul>
     </div>
