@@ -30,7 +30,7 @@ const router = createBrowserRouter(
         {/* Pages with header and footer */}
         <Route index element={<Home />} />
         <Route path="/patients" element={<PatientsLayout />}>
-          <Route path=":name" element={<Patients />} />
+          <Route path=":id" element={<Patients />} />
         </Route>
       </Route>
     </Route>

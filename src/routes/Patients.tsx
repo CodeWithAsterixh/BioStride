@@ -2,21 +2,9 @@ import { useEffect, useState } from "react";
 // import PeopleList from "../components/majors/patientsComponents/PeopleList";
 import PersonDetails from "../components/majors/patientsComponents/PersonDetails";
 import { useNavigate, useParams } from "react-router-dom";
-import { people } from "../components/majors/patientsComponents/PeopleList";
+import { people, Person } from "../components/majors/patientsComponents/peopleData";
 
-export type Person = {
-  id: number;
-  name: string;
-  photo: string;
-  dob: string;
-  gender: string;
-  contact?: string;
-  emergencyContact?: string;
-  insuranceProvider?: string;
-  respiratoryRate?: number | string;
-  temperature?: number | string;
-  heartRate?: number | string;
-}; // Match the type used in PeopleList
+
 
 export default function Patients() {
   const [selectedPerson, setSelectedPerson] = useState<Person>();
@@ -27,17 +15,18 @@ export default function Patients() {
     navigate('/patients');
   }
 
-  const {name} = useParams();
+  const {id} = useParams();
 
   useEffect(() => {
-   const person = people.find(person => person.name === name);
+    const idNum = parseInt(id||'0')
+   const person = people.find(person => person.id === idNum);
     setSelectedPerson(person);
 
-  }, [name])
+  }, [id])
   
 
   return (
-    <div className="h-screen bg-gray-100 absolute w-full md:relative z-10 overflow-y-auto">
+    <div className="h-full absolute w-full md:relative z-10 overflow-y-auto no-scrollbar bg-white md:rounded-2xl">
       <PersonDetails
           person={selectedPerson}
           showAllInfo={showAllInfo}
