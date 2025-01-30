@@ -1,9 +1,9 @@
 import {useState} from 'react'
-import PeopleList from '../components/majors/patientsComponents/PeopleList'
+import PeopleList, { Person } from '../components/majors/patientsComponents/PeopleList'
 import PersonDetails from '../components/majors/patientsComponents/PersonDetails'
 
 export default function Patients() {
-    const [selectedPerson, setSelectedPerson] = useState(null)
+    const [selectedPerson, setSelectedPerson] = useState<Person>() // clear this comment when seen: updated the selectedPerson state type interface
     const [showAllInfo, setShowAllInfo] = useState(false)
     const [sidebarOpen, setSidebarOpen] = useState(false)
   return (
