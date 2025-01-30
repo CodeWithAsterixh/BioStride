@@ -1,8 +1,10 @@
-import { useState } from "react";
-import PeopleList from "../components/majors/patientsComponents/PeopleList";
+import { useEffect, useState } from "react";
+// import PeopleList from "../components/majors/patientsComponents/PeopleList";
 import PersonDetails from "../components/majors/patientsComponents/PersonDetails";
+import { useNavigate, useParams } from "react-router-dom";
+import { people } from "../components/majors/patientsComponents/PeopleList";
 
-type Person = {
+export type Person = {
   id: number;
   name: string;
   photo: string;
@@ -17,28 +19,31 @@ type Person = {
 }; // Match the type used in PeopleList
 
 export default function Patients() {
-  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null);
+  const [selectedPerson, setSelectedPerson] = useState<Person>();
   const [showAllInfo, setShowAllInfo] = useState(false);
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  
+  const navigate = useNavigate()
+  const handleNavigateBackToList = () => {
+    navigate('/patients');
+  }
+
+  const {name} = useParams();
+
+  useEffect(() => {
+   const person = people.find(person => person.name === name);
+    setSelectedPerson(person);
+
+  }, [name])
+  
 
   return (
-    <div className="flex flex-col md:flex-row h-screen bg-gray-100">
-      <div className={`md:w-1/4 border-r ${sidebarOpen ? "block" : "hidden md:block"}`}>
-        <PeopleList
-          onSelectPerson={(person: Person) => {
-            setSelectedPerson(person);
-            setSidebarOpen(false);
-          }}
-        />
-      </div>
-      <div className="flex-1 overflow-auto">
-        <PersonDetails
+    <div className="h-screen bg-gray-100 absolute w-full md:relative z-10 overflow-y-auto">
+      <PersonDetails
           person={selectedPerson}
           showAllInfo={showAllInfo}
           setShowAllInfo={setShowAllInfo}
-          toggleSidebar={() => setSidebarOpen(!sidebarOpen)}
+          toggleSidebar={handleNavigateBackToList}
         />
-      </div>
     </div>
   );
 }

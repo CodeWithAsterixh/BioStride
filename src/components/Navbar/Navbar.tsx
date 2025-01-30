@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   AlignRight,
@@ -11,11 +11,13 @@ import {
   MessageSquare,
   CreditCard,
 } from "lucide-react";
+import { useOpenPeopleList } from './../../utils/useOpenPeopleList';
 
 const linkClasses =
   "flex items-center font-semibold space-x-2 relative group";
 
 const Navbar: React.FC = () => {
+  const {sidebarOpen, setSidebarOpen} = useOpenPeopleList();
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation(); // Get the current route
 
@@ -30,6 +32,12 @@ const Navbar: React.FC = () => {
     { to: "/messages", label: "Messages", icon: <MessageSquare /> },
     { to: "/transactions", label: "Transactions", icon: <CreditCard /> },
   ];
+
+  useEffect(() => {
+    console.log(navLinks[1].to)
+    console.log(location.pathname.includes(navLinks[1].to))
+  }, [location.pathname])
+  
 
   return (
     <header className="z-[100] duration-300 w-full md:px-5 md:py-4 bg-[#f2f8fc]">
@@ -46,7 +54,8 @@ const Navbar: React.FC = () => {
                 <Link
                   to={link.to}
                   className={`${
-                    location.pathname === link.to
+                    location.pathname === '/' && link.to==='/'?`${linkClasses} bg-[#56bbe3] text-white px-4 py-2 rounded-full flex items-end gap-2`:
+                    location.pathname.includes(link.to)&&link.to!=='/'
                       ? `${linkClasses} bg-[#56bbe3] text-white px-4 py-2 rounded-full flex items-end gap-2`
                       : `${linkClasses} px-4 py-2 flex items-end gap-2`
                   }`}
@@ -114,11 +123,17 @@ const Navbar: React.FC = () => {
                 <Link
                   to={link.to}
                   className={`${
-                    location.pathname === link.to
+                    location.pathname === '/' && link.to==='/'?`${linkClasses} bg-[#56bbe3] text-white px-1 py-2 rounded w-full flex gap-2`:
+                    location.pathname.includes(link.to)&&link.to!=='/'
                       ? `${linkClasses} bg-[#56bbe3] text-white px-1 py-2 rounded w-full flex gap-2`
                       : `${linkClasses} flex gap-2 hover:bg-gray-100 px-1 py-2 w-full`
                   }`}
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    setIsOpen(false); // Close the navigation menu
+                    if (link.to === '/patients') {
+                      setSidebarOpen(sidebarOpen ? false : true);
+                    }
+                  }}
                 >
                   {link.icon}
                   {link.label}
@@ -126,25 +141,25 @@ const Navbar: React.FC = () => {
               </li>
             ))}
           </ul>
-            <button className="flex items-center justify-between w-full h-full max-h-[5rem] border-r-2 border-gray-400 pr-1">
-                <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
-                    <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
-                        <img 
-                        src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" alt="logo" 
-                        className="w-full h-full object-cover"
-                        />
-                    </div>
+          <button className="flex items-center justify-between w-full h-full max-h-[5rem] border-r-2 border-gray-400 pr-1">
+            <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
+                <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
+                    <img 
+                    src="https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" alt="logo" 
+                    className="w-full h-full object-cover"
+                    />
                 </div>
-                <div className="text-left flex flex-col text-sm text-gray-600">
-                    <b className="">Victor Movicx</b>
-                    <p className="">General Practitioner</p>
-                </div>
-                <span className="w-[0.2rem] h-[2.1rem] bg-gray-100 rounded-full text-gray-100 mx-1">.</span>
-                <button className="flex items-center gap-1">
-                    <Settings />
-                    <EllipsisVertical />
-                </button>  
-            </button>
+            </div>
+            <div className="text-left flex flex-col text-sm text-gray-600">
+                <b className="">Victor Movicx</b>
+                <p className="">General Practitioner</p>
+            </div>
+            <span className="w-[0.2rem] h-[2.1rem] bg-gray-100 rounded-full text-gray-100 mx-1">.</span>
+            <button className="flex items-center gap-1">
+                <Settings />
+                <EllipsisVertical />
+            </button>  
+          </button>
         </nav>
       </div>
     </header>

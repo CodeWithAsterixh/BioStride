@@ -16,6 +16,7 @@ import {
   Home,
   Patients,
 } from "./App";
+import PatientsLayout from "./Layouts/PagesLayout/Patients";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +28,9 @@ const router = createBrowserRouter(
       <Route element={<MainLayout />}>
         {/* Pages with header and footer */}
         <Route index element={<Home />} />
-        <Route path="patients" element={<Patients />} />
+        <Route path="/patients" element={<PatientsLayout />}>
+          <Route path=":name" element={<Patients />} />
+        </Route>
       </Route>
     </Route>
   )
