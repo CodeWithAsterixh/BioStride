@@ -1,13 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { people } from "./peopleData";
-
-
-
-// interface PeopleListProps {
-//   onSelectPerson: (person: Person) => void;
-// }
-
+import PatientData from "../../../datas/PatientData";
 
 
 const PeopleList: React.FC = () => {
@@ -23,14 +16,17 @@ const PeopleList: React.FC = () => {
     setCurrentId(cId)
     
 
-  },[pathname])
+  }, [pathname])
 
-  const filteredPeople = people.filter((person) =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+
+  const filteredPeople = PatientData.filter((person) => {
+    // person.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const fullName = `${person.personal_data.first_name} ${person.personal_data.last_name}`.toLowerCase();
+    return fullName.includes(searchTerm.toLowerCase());
+  });
 
   return (
-    <div className="h-screen md:h-full flex flex-col bg-white shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
+    <div className="h-screen md:min-h-[85vh] md:h-full flex flex-col bg-white shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
       <div className="p-4 flex items-center">
         <input
           type="text"
@@ -43,30 +39,35 @@ const PeopleList: React.FC = () => {
       <ul className="gap-1 flex flex-col overflow-auto no-scrollbar px-2">
         {filteredPeople.map((person) => (
           <Link
-            to={`/patients/${person.id}`}
-            key={person.id}
-            className={`px-4 py-3 hover:bg-gray-200 ${currentId===person.id?"bg-gray-300":""} duration-300 cursor-pointer flex items-center rounded-md`}
+            to={`/patients/${person.patient_id}`}
+            key={person.patient_id}
+            className={`px-4 py-3 ${currentId === person.patient_id ? "bg-gray-200" : "hover:bg-gray-100"} duration-300 cursor-pointer flex items-center rounded-md`}
           >
-            <div className="h-10 w-10 mr-3 rounded-full overflow-hidden flex items-center justify-center bg-gray-300">
-              {person.photo && person.photo.trim() !== "" ?  (
-                <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
+            {/* Directly accessing personal_data properties */}
+            <div className="flex items-center gap-2">
+              <div className="mr-1 rounded-full overflow-hidden flex items-center justify-center bg-gray-300">
+                {person.personal_data.image && person.personal_data.image.trim() !== "" ? (
+                  <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
                     <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
-                        <img src={person.photo} alt={person.name} className="h-full w-full object-cover" />
+                      <img src={person.personal_data.image} alt={person.personal_data.first_name} className="h-full w-full object-cover" />
                     </div>
+                  </div>
+                ) : (
+                  <span className="text-gray-500">
+                    {person.personal_data.first_name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </span>
+                )}
+              </div>
+              <div>
+                <div className="font-semibold">
+                  {person.personal_data.first_name} {person.personal_data.last_name}
                 </div>
-              ) : (
-                <span className="text-gray-500">
-                    {person.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-              )}
-            </div>
-            <div>
-              <div className="font-semibold">{person.name}</div>
-              <div className="text-sm text-gray-500">
-                {person.dob} | {person.gender}
+                <div className="text-sm text-gray-500">
+                  {person.personal_data.date_of_birth} | {person.personal_data.gender}
+                </div>
               </div>
             </div>
           </Link>

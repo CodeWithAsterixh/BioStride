@@ -1,8 +1,8 @@
 import { Patient } from "../types/patientstypes";
 
 
-const PatientData: Patient = {
-  patient_id: "12345",
+const PatientData: Patient[] = [{
+  patient_id: 1,
   personal_data: {
     first_name: "John",
     last_name: "Doe",
@@ -18,7 +18,18 @@ const PatientData: Patient = {
         state: "CA",
         postal_code: "90210",
         country: "USA"
-      }
+      },
+      emergencyContact: {
+        relationship: "Mother",
+        name: "Jane Doe",
+        phone: "+1234567890",
+        email: "janedoe@example.com",
+        street: "123 Main St",
+        city: "Anytown",
+        state: "CA",
+        postal_code: "90210",
+        country: "USA"
+      },
     }
   },
   medical_history: {
@@ -213,6 +224,6 @@ const PatientData: Patient = {
       ]
     }
   ]
-};
+}];
 
 export default PatientData;

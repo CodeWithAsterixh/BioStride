@@ -3,9 +3,9 @@
 import { CalendarCheck2Icon, HeartPulseIcon, PersonStandingIcon } from "lucide-react";
 import DashboardTrendCard from "../components/DashboardTrendCard/DashboardTrendCard";
 import DashboardSectionContainer from "../components/DashboardSectionContainer/DashboardSectionContainer";
-import PatientStatisticsChart from "../features/PatientStatisticsChart/PatientStatisticsChart";
-import TotalExpensesChart from "../features/TotalExpensesChart/TotalExpensesChart";
-import { totalExpenseData } from "../features/TotalExpensesChart/expensesData";
+import PatientStatisticsChart from "../features/patientsFeatures/PatientStatisticsChart/PatientStatisticsChart";
+import TotalExpensesChart from "../features/patientsFeatures/TotalExpensesChart/TotalExpensesChart";
+import { totalExpenseData } from "../features/patientsFeatures/TotalExpensesChart/expensesData";
 
 export default function Home() {
   return (

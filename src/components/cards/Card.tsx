@@ -22,7 +22,7 @@ export const CardTitle: React.FC<{ children: React.ReactNode; className?: string
   children,
   className,
 }) => {
-  return <h3 className={`text-lg font-semibold ${className}`}>{children}</h3>;
+  return <h3 className={`text-xl font-semibold ${className}`}>{children}</h3>;
 };
 
 export const CardContent: React.FC<{ children: React.ReactNode; className?: string }> = ({

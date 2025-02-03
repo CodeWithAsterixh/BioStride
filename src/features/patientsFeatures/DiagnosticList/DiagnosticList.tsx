@@ -18,12 +18,12 @@ const DiagnosticList: React.FC = () => {
       <div className="mb-4">
         <h2 className="text-lg font-semibold">Diagnostic List</h2>
       </div>
-      <div className="overflow-auto h-[300px]">
+      <div className="overflow-auto h-auto">
         <table className="min-w-full border-collapse border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-200 p-2 min-w-[160px] text-left">Problem/Diagnosis</th>
-              <th className="border border-gray-200 p-2 text-left">Description</th>
+              <th className="min-w-[14rem] border border-gray-200 p-2 text-left">Problem/Diagnosis</th>
+              <th className="min-w-[20rem] border border-gray-200 p-2 text-left">Description</th>
               <th className="border border-gray-200 p-2 w-[100px] text-left">Status</th>
             </tr>
           </thead>
