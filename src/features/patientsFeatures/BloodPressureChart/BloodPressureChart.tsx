@@ -1,7 +1,7 @@
 import React from 'react';
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { ChartTooltipContent } from '../../components/chart/ChartTooltips';
-import { ChartContainer } from './../../components/chart/ChartContainer';
+import { ChartTooltipContent } from '../../../components/chart/ChartTooltips';
+import { ChartContainer } from '../../../components/chart/ChartContainer';
 
 const data = [
   { month: 'Jan', systolic: 125, diastolic: 240 },

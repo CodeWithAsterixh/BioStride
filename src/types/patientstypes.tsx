@@ -6,10 +6,23 @@ export interface Address {
   country: string;
 }
 
+export interface EmergencyContact {
+  relationship: string;
+  name: string;
+  phone: string;
+  email: string;
+  street: string;
+  city: string;
+  state: string;
+  postal_code: string;
+  country: string;
+}
+
 export interface ContactInformation {
   phone_number: string;
   email: string;
   address: Address;
+  emergencyContact: EmergencyContact;
 }
 
 export interface Person {
@@ -111,7 +124,7 @@ export interface MedicalHistory {
 }
 
 export interface Patient {
-  patient_id: string;
+  patient_id: string | number;
   personal_data: PersonalData;
   medical_history: MedicalHistory;
   yearly_data: YearlyData[];
