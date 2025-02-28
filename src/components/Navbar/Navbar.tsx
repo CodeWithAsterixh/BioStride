@@ -40,7 +40,7 @@ const Navbar: React.FC = () => {
   return (
     <header className="z-[100] duration-300 w-full lg:px-5 lg:py-4 bg-[#f2f8fc]">
       {/* Desktop Menu */}
-      <nav className="py-2 md:py-2 lg:py-0 bg-white shadow-lg backdrop-blur-md w-full lg:rounded-full overflow-hidden">
+      <nav className="py-2 md:py-2 lg:py-0 bg-white shadow-lg md:shadow-sm backdrop-blur-md w-full lg:rounded-full overflow-hidden">
         <div className="px-4 lg:px-9 flex justify-between items-center w-full">
           <header className="flex items-center text-2xl lg:text-3xl xl:text-[1.7rem] font-bold">
             <span className="text-primary">B</span>io<span className="text-primary">S</span>tride

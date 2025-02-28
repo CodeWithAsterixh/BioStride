@@ -8,7 +8,7 @@ export const ChartTooltipContent: React.FC<TooltipProps<any, any>> = ({ active, 
         <p className="font-semibold">{label}</p>
         {payload.map((entry, index) => (
           <p key={index} style={{ color: entry.color }}>
-            {entry.name}: {entry.value}
+            {entry.name}: {entry.value} mmHg
           </p>
         ))}
       </div>

@@ -7,6 +7,7 @@ const PeopleList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const {pathname} = useLocation()
   const [currentId, setCurrentId] = useState<number>(0)
+  
 
   useEffect(()=>{
     const paths = pathname.split('/')
@@ -14,9 +15,11 @@ const PeopleList: React.FC = () => {
     const cId = parseInt(currentRoute)
 
     setCurrentId(cId)
-    
-
+  
   }, [pathname])
+
+  
+
 
 
   const filteredPeople = PatientData.filter((person) => {
@@ -41,7 +44,7 @@ const PeopleList: React.FC = () => {
           <Link
             to={`/patients/${person.patient_id}`}
             key={person.patient_id}
-            className={`px-4 py-3 ${currentId === person.patient_id ? "bg-gray-200" : "hover:bg-gray-100"} duration-300 cursor-pointer flex items-center rounded-md`}
+            className={`px-4 py-3 ${currentId === person.patient_id ? "bg-[#56bbe3] bg-opacity-20" : "hover:bg-gray-100"} duration-300 cursor-pointer flex items-center rounded-md`}
           >
             {/* Directly accessing personal_data properties */}
             <div className="flex items-center gap-2">

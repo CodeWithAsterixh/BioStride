@@ -33,6 +33,8 @@ export default function Patients() {
       {selectedPerson ? (
         <PersonDetails
           person={selectedPerson.personal_data}
+          patientHistory={selectedPerson.medical_history}
+          patientYearlyData={selectedPerson.yearly_data}
           showAllInfo={showAllInfo}
           setShowAllInfo={setShowAllInfo}
           toggleSidebar={handleNavigateBackToList}
