@@ -70,11 +70,13 @@ const LabResults = ({ testResults }: { testResults: MonthlyData[] }) => {
                 <td className="py-2 px-4 border-b">{test.test_name}</td>
                 <td className="py-2 px-4 border-b">{test.test_date}</td>
                 <td className="py-2 px-4 border-b">
-                  <ul>
-                    {Object.entries(test.results).map(([key, value]) => (
-                      <li key={key}>{`${key}: ${value}`}</li>
-                    ))}
-                  </ul>
+                  {(() => {
+                    const entries = Object.entries(test.results);
+                    if (entries.length === 0) return "No results";
+                    
+                    const [firstKey, firstValue] = entries[0];
+                    return `${firstKey}: ${firstValue.length > 30 ? firstValue.slice(0, 30) + '...' : firstValue} ${entries.length > 1 ? "..." : ""}`;
+                  })()}
                 </td>
                 <td className="py-2 px-4 border-b">{test.interpretation}</td>
                 <td className="py-2 px-4 border-b">

@@ -65,7 +65,7 @@ export default function PersonDetails({
   }
 
   return (
-    <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-[4rem]">
+    <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-[4rem] dark:bg-darkComponentsBg">
       <div className="flex justify-between items-center">
         <Button variant="outline" className="md:hidden flex items-center gap-2 bg-white rounded-full py-2" onClick={toggleSidebar}>
           <ArrowLeft className="h-5 w-5" />
@@ -82,10 +82,10 @@ export default function PersonDetails({
             <div className="flex items-center gap-2 justify-between">
               <CardTitle>Vital Signs</CardTitle>
               {/* Year Selector with Icons */}
-              <div className="flex items-center justify-center gap-4">
+              <div className="flex items-center justify-center gap-2">
                 <button
                   onClick={handlePrevYear}
-                  className="px-4 py-1 bg-[#56bbe3] text-white rounded-full hover:bg-[#56bbe3] hover:bg-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#56bbe3] hover:bg-opacity-25 hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
                   disabled={selectedYearIndex === 0}
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -95,7 +95,7 @@ export default function PersonDetails({
 
                 <button
                   onClick={handleNextYear}
-                  className="px-4 py-1 bg-[#56bbe3] text-white rounded-full hover:bg-[#56bbe3] hover:bg-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#56bbe3] hover:bg-opacity-25 hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
                   disabled={selectedYearIndex === patientYearlyData.length - 1}
                 >
                   <ChevronRight className="w-6 h-6" />

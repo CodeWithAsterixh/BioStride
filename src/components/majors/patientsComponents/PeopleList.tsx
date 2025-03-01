@@ -29,14 +29,14 @@ const PeopleList: React.FC = () => {
   });
 
   return (
-    <div className="h-screen md:min-h-[85vh] md:h-full flex flex-col bg-white shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
+    <div className="h-screen md:min-h-[85vh] md:h-full flex flex-col bg-white dark:bg-darkComponentsBg shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
       <div className="p-4 flex items-center">
         <input
           type="text"
           placeholder="Search people..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 border-2 border-[#56bbe3] rounded-full outline-none"
+          className="w-full px-4 py-2 border-2 border-[#56bbe3] bg-transparent cursor-pointer rounded-full outline-none dark:shadow-xl dark:text-gray-300"
         />
       </div>
       <ul className="gap-1 flex flex-col overflow-auto no-scrollbar px-2">
@@ -44,7 +44,7 @@ const PeopleList: React.FC = () => {
           <Link
             to={`/patients/${person.patient_id}`}
             key={person.patient_id}
-            className={`px-4 py-3 ${currentId === person.patient_id ? "bg-[#56bbe3] bg-opacity-20" : "hover:bg-gray-100"} duration-300 cursor-pointer flex items-center rounded-md`}
+            className={`px-4 py-3 ${currentId === person.patient_id ? "bg-[#56bbe3] bg-opacity-20" : "hover:bg-gray-100 dark:hover:bg-gray-600"} duration-300 cursor-pointer flex items-center rounded-md`}
           >
             {/* Directly accessing personal_data properties */}
             <div className="flex items-center gap-2">
@@ -65,10 +65,10 @@ const PeopleList: React.FC = () => {
                 )}
               </div>
               <div>
-                <div className="font-semibold">
+                <div className="font-semibold dark:text-[#56bbe3]">
                   {person.personal_data.first_name} {person.personal_data.last_name}
                 </div>
-                <div className="text-sm text-gray-500">
+                <div className="text-sm text-gray-500 dark:text-gray-400">
                   {person.personal_data.date_of_birth} | {person.personal_data.gender}
                 </div>
               </div>
