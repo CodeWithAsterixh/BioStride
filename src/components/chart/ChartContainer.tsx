@@ -21,7 +21,7 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({ config, classNam
         {Object.entries(config).map(([key, { label, color }]) => (
           <div key={key} className="flex gap-1 items-center">
             <div className="w-4 h-4" style={{ backgroundColor: color }}></div>
-            <span>{label}</span>
+            <span className='dark:text-white'>{label}</span>
           </div>
         ))}
       </div>

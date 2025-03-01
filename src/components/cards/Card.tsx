@@ -5,7 +5,7 @@ export const Card: React.FC<{ children: React.ReactNode; className?: string }> =
   className,
 }) => {
   return (
-    <div className={`border rounded-lg shadow-sm bg-white ${className}`}>
+    <div className={`border dark:border-[#56bbe3] rounded-lg shadow-sm bg-white dark:bg-transparent ${className}`}>
       {children}
     </div>
   );
@@ -15,14 +15,14 @@ export const CardHeader: React.FC<{ children: React.ReactNode; className?: strin
   children,
   className,
 }) => {
-  return <div className={`p-4 border-b ${className}`}>{children}</div>;
+  return <div className={`p-4 border-b dark:border-[#56bbe3] ${className}`}>{children}</div>;
 };
 
 export const CardTitle: React.FC<{ children: React.ReactNode; className?: string }> = ({
   children,
   className,
 }) => {
-  return <h3 className={`text-xl font-semibold whitespace-nowrap ${className}`}>{children}</h3>;
+  return <h3 className={`text-xl font-semibold whitespace-nowrap dark:text-[#56bbe3] ${className}`}>{children}</h3>;
 };
 
 export const CardContent: React.FC<{ children: React.ReactNode; className?: string }> = ({
@@ -36,5 +36,5 @@ export const CardDescription: React.FC<{ children: React.ReactNode; className?: 
   children,
   className,
 }) => {
-  return <p className={`text-sm text-gray-500 ${className}`}>{children}</p>;
+  return <p className={`text-sm text-gray-500 dark:text-gray-400 ${className}`}>{children}</p>;
 };
