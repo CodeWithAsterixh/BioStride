@@ -4,7 +4,7 @@ import Navbar from '../components/Navbar/Navbar';
 
 export default function MainLayout() {
   return (
-    <main className='flex flex-col justify-center items-center w-full h-screen bg-[#f2f8fc]'>
+    <main className='flex flex-col items-center w-full h-screen bg-[#f2f8fc]'>
           {/* Navbar here*/}
           <nav className='w-full fixed top-0 left-0 z-[100] bg-white'>
               <Navbar/>

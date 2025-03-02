@@ -35,3 +35,12 @@ body {
 .recharts-surface{
   width: 100% !important;
 }
+
+/* button click effect */
+
+.buttonEffect:active{
+  scale: .95;
+  transition-duration: 200ms;
+  position: relative;
+}
+
