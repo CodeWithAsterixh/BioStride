@@ -1,53 +1,100 @@
-import React from "react";
-import { Download } from "lucide-react";
+import { Download } from 'lucide-react';
+import jsPDF from 'jspdf';
+import autoTable, { UserOptions } from 'jspdf-autotable';
+import { MonthlyData } from '../../../types/patientstypes';
 
-interface LabResult {
-  name: string;
-  date: string;
-  file: string;
+interface LabTest {
+  test_name: string;
+  test_date: string;
+  results: Record<string, string>;
+  interpretation: string;
+  month?: string;
 }
 
-const labResults: LabResult[] = [
-  { name: "Complete Blood Count", date: "2023-05-15", file: "cbc_results.pdf" },
-  { name: "Lipid Panel", date: "2023-04-22", file: "lipid_panel.pdf" },
-  { name: "Thyroid Function Test", date: "2023-03-10", file: "thyroid_test.pdf" },
-];
+const LabResults = ({ testResults }: { testResults: MonthlyData[] }) => {
+  // Flatten and sort the lab test data by most recent date
+  const allLabTests: LabTest[] = testResults
+    .flatMap((monthData) =>
+      monthData.lab_tests.map((test) => ({
+        ...test,
+        month: monthData.month,
+      }))
+    )
+    .sort((a, b) => new Date(b.test_date).getTime() - new Date(a.test_date).getTime()); // Sort by most recent date
 
-const LabResults: React.FC = () => {
+  const handleDownload = (test: LabTest) => {
+    const doc = new jsPDF();
+
+    doc.setFontSize(18);
+    doc.text(`Lab Test Result: ${test.test_name}`, 14, 22);
+
+    const tableData = Object.entries(test.results).map(([key, value]) => [key, value]);
+
+    autoTable(doc, {
+      startY: 30,
+      head: [['Parameter', 'Value']],
+      body: tableData,
+      theme: 'grid',
+      styles: { fontSize: 12 },
+      headStyles: { fillColor: [41, 128, 185] },
+    } as UserOptions);
+
+    // Correctly infer the final Y position from autoTable
+    const finalY = (doc as jsPDF & { autoTable?: { previous?: { finalY?: number } } })?.autoTable?.previous?.finalY || 40;
+
+    doc.setFontSize(12);
+    doc.text(`Interpretation: ${test.interpretation}`, 14, finalY + 10);
+
+    doc.save(`${test.test_name}_${test.test_date}.pdf`);
+  };
+
   return (
     <div className="border rounded shadow p-4 bg-white">
       <div className="mb-4">
         <h2 className="text-lg font-semibold">Lab Results</h2>
       </div>
-      <div>
-        <ul className="space-y-4">
-          {labResults.map((result, index) => (
-            <li
-              key={index}
-              className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0"
-            >
-              <div>
-                <h4 className="font-semibold">{result.name}</h4>
-                <p className="text-sm text-gray-500">{result.date}</p>
-              </div>
-              <button
-                className="flex items-center px-4 py-2 border border-[#56bbe3] rounded bg-opacity-90 bg-[#56bbe3] text-white hover:bg-[#2baadc]"
-                onClick={() => handleDownload(result.file)}
-              >
-                <Download className="mr-2 h-6 w-6" />
-                Download
-              </button>
-            </li>
-          ))}
-        </ul>
+      <div className="overflow-auto h-auto">
+        <table className="min-w-full bg-white border border-gray-200">
+          <thead>
+            <tr className="bg-gray-100 text-start">
+              <th className="min-w-[15rem] py-2 px-4 border-b text-start">Test Name</th>
+              <th className="min-w-[8rem] py-2 px-4 border-b text-start">Date</th>
+              <th className="min-w-[19rem] py-2 px-4 border-b text-start">Results</th>
+              <th className="py-2 px-4 border-b text-start">Interpretation</th>
+              <th className="py-2 px-4 border-b text-start">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {allLabTests.map((test, index) => (
+              <tr key={index} className="odd:bg-white even:bg-gray-50">
+                <td className="py-2 px-4 border-b">{test.test_name}</td>
+                <td className="py-2 px-4 border-b">{test.test_date}</td>
+                <td className="py-2 px-4 border-b">
+                  {(() => {
+                    const entries = Object.entries(test.results);
+                    if (entries.length === 0) return "No results";
+                    
+                    const [firstKey, firstValue] = entries[0];
+                    return `${firstKey}: ${firstValue.length > 30 ? firstValue.slice(0, 30) + '...' : firstValue} ${entries.length > 1 ? "..." : ""}`;
+                  })()}
+                </td>
+                <td className="py-2 px-4 border-b">{test.interpretation}</td>
+                <td className="py-2 px-4 border-b">
+                  <button
+                    className="flex items-center px-4 py-2 border border-[#56bbe3] rounded-full bg-opacity-90 bg-[#56bbe3] text-white hover:bg-[#2baadc]"
+                    onClick={() => handleDownload(test)}
+                  >
+                    <Download className="mr-2 h-4 w-4" />
+                    Download
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );
-};
-
-const handleDownload = (file: string) => {
-  alert(`Downloading file: ${file}`);
-  // Logic to handle file download can be added here
 };
 
 export default LabResults;

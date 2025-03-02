@@ -86,10 +86,10 @@ export interface LabTest {
   interpretation: string;
 }
 
-export interface VitalSigns {
+export interface vital_signs {
   date: string;
-  systolic_blood_pressure: string;
-  diastolic_blood_pressure: string;
+  systolic_blood_pressure: number;
+  diastolic_blood_pressure: number;
   temperature: string;
   respiratory_rate: string;
   heart_rate: string;
@@ -105,13 +105,13 @@ export interface Visit {
 
 export interface MonthlyData {
   month: string;
-  vital_signs: VitalSigns[];
+  vital_signs: vital_signs[];
   lab_tests: LabTest[];
   visits: Visit[];
 }
 
 export interface YearlyData {
-  year: string;
+  year: number;
   monthly_data: MonthlyData[];
 }
 

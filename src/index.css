@@ -5,6 +5,7 @@
 :root{
   --primary: #56bbe3;
   --primary-dark: #00b2cb;
+  --darkComponentsBg: #1e293b;
 }
 body {
   margin: 0;
@@ -34,6 +35,10 @@ body {
 /* layer change */
 .recharts-surface{
   width: 100% !important;
+}
+
+.DarkModeBg{
+  background-color: #1e293b;
 }
 
 /* button click effect */
