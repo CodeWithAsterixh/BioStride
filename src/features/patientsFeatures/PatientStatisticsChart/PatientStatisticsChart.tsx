@@ -1,4 +1,4 @@
-import { Area, AreaChart, Tooltip, XAxis } from "recharts";
+import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis } from "recharts";
 
 interface patientStats {
   month:
@@ -37,33 +37,37 @@ const data: patientStats[] = [
 
 export default function PatientStatisticsChart() {
   return (
-    <AreaChart
-      width={300}
-      height={250}
-      data={data}
-      margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-    >
-      <defs>
-        <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#9eccdf" stopOpacity={0.8} />
-          <stop offset="95%" stopColor="#56bbe3" stopOpacity={0} />
-        </linearGradient>
-      </defs>
-      <XAxis dataKey="month" className="capitalize" startOffset={0} />
-      <Tooltip contentStyle={{
-        backgroundColor:"#f8fafc",
-        borderRadius:"10px",
-        borderColor:"#56bbe3"
-      }}   />
+    <div className="bg-white dark:bg-darkComponentsBg rounded-lg">
+      <ResponsiveContainer width="100%" height={250} className="w-full flex-1">
+        <AreaChart
+          width={300}
+          height={250}
+          data={data}
+          margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
+        >
+          <defs>
+            <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="5%" stopColor="#9eccdf" stopOpacity={0.8} />
+              <stop offset="95%" stopColor="#56bbe3" stopOpacity={0} />
+            </linearGradient>
+          </defs>
+          <XAxis dataKey="month" className="capitalize" startOffset={0} />
+          <Tooltip contentStyle={{
+            backgroundColor:"#f8fafc",
+            borderRadius:"10px",
+            borderColor:"#56bbe3"
+          }}   />
 
-      <Area
-        type="monotone"
-        dataKey="amt"
-        stroke="#127aa3"
-        fillOpacity={1}
-        fill="url(#colorAmt)"
-        baseValue={0}
-      />
-    </AreaChart>
+          <Area
+            type="monotone"
+            dataKey="amt"
+            stroke="#127aa3"
+            fillOpacity={1}
+            fill="url(#colorAmt)"
+            baseValue={0}
+          />
+          </AreaChart>
+      </ResponsiveContainer>
+    </div>
   );
 }

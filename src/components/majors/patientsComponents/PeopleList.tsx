@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import PatientData from "../../../datas/PatientData";
+import { SearchIcon } from "lucide-react";
 
 
 const PeopleList: React.FC = () => {
@@ -29,15 +30,18 @@ const PeopleList: React.FC = () => {
   });
 
   return (
-    <div className="h-screen md:min-h-[85vh] md:h-full flex flex-col bg-white dark:bg-darkComponentsBg shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
+    <div className="h-screen md:min-h-[85vh] md:h-full lg:max-w-[18.5rem] flex flex-col bg-white dark:bg-darkComponentsBg shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
       <div className="p-4 flex items-center">
-        <input
+        <div className="w-full h-10 px-4 border-2 border-[#56bbe3] cursor-pointer rounded-full dark:shadow-xl flex items-center gap-2">
+          <SearchIcon className="w-5 h-5 text-gray-400" />
+          <input
           type="text"
           placeholder="Search people..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 border-2 border-[#56bbe3] bg-transparent cursor-pointer rounded-full outline-none dark:shadow-xl dark:text-gray-300"
-        />
+          className="w-full h-full outline-none bg-transparent dark:text-gray-300"
+          />
+        </div>
       </div>
       <ul className="gap-1 flex flex-col overflow-auto no-scrollbar px-2">
         {filteredPeople.map((person) => (
@@ -65,7 +69,7 @@ const PeopleList: React.FC = () => {
                 )}
               </div>
               <div>
-                <div className="font-semibold dark:text-[#56bbe3]">
+                <div className="font-semibold dark:text-[#56bbe3] text-sm">
                   {person.personal_data.first_name} {person.personal_data.last_name}
                 </div>
                 <div className="text-sm text-gray-500 dark:text-gray-400">
