@@ -13,6 +13,7 @@ body {
   place-items: center;
   width: 100vw;
   min-height: 100vh;
+  font-size: small;
 }
 
 #root {
@@ -37,6 +38,42 @@ body {
   width: 100% !important;
 }
 
-.DarkModeBg{
-  background-color: #1e293b;
+/* Responsive styles for the datepicker */
+.responsive-datepicker {
+  font-size: 14px; /* Base font size */
+}
+
+/* Adjust calendar size for smaller screens */
+@media (max-width: 768px) {
+  .responsive-datepicker {
+    font-size: 12px;
+  }
+
+  .react-datepicker {
+    width: 100% !important;
+    max-width: 250px;
+  }
+
+  .react-datepicker__month-container {
+    width: 100%; /* Ensure the month container fits within the calendar */
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    width: 3rem; /* Smaller day cells */
+    line-height: 3rem; /* Center text vertically */
+  }
+}
+
+/* Adjust calendar for very small screens */
+@media (max-width: 480px) {
+  .responsive-datepicker {
+    font-size: 10px; /* Even smaller font size for very small screens */
+  }
+
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    max-width: 3rem; /* Even smaller day cells */
+    line-height: 2rem;
+  }
 }

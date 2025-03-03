@@ -85,7 +85,7 @@ export default function PersonDetails({
               <div className="flex items-center justify-center gap-2">
                 <button
                   onClick={handlePrevYear}
-                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#56bbe3] hover:bg-opacity-25 hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
                   disabled={selectedYearIndex === 0}
                 >
                   <ChevronLeft className="w-6 h-6" />
@@ -95,7 +95,7 @@ export default function PersonDetails({
 
                 <button
                   onClick={handleNextYear}
-                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#56bbe3] hover:bg-opacity-25 hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
                   disabled={selectedYearIndex === patientYearlyData.length - 1}
                 >
                   <ChevronRight className="w-6 h-6" />
