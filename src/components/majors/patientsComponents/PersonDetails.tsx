@@ -9,6 +9,8 @@ import { MedicalHistory, PersonalData, YearlyData } from "../../../types/patient
 import PatientProfile from "./PatientProfile";
 import VitalSigns from "../../../features/patientsFeatures/vitalSigns/VitalSigns";
 import { useState } from "react";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import DrawerPatientProfile from "./DrawerPatientProfile";
 
 interface PersonDetailsProps {
   person?: PersonalData | null;  
@@ -71,9 +73,28 @@ export default function PersonDetails({
           <ArrowLeft className="h-5 w-5" />
           People List
         </Button>
-        <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem]">
+        <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem] hidden md:block">
           {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>
+        <Drawer>
+          <DrawerTrigger className="md:hidden">Open</DrawerTrigger>
+          <DrawerContent className="w-full h-[85%] bg-white dark:bg-darkComponentsBg rounded-t-[2rem] p-0">
+            <DrawerPatientProfile/>
+
+            {/* <DrawerHeader>
+              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+              <DrawerDescription>This action cannot be undone.</DrawerDescription>
+            </DrawerHeader> */}
+            {/* <DrawerFooter>
+              <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">
+                  <Ellipsis />
+                </Button>
+              </DrawerClose>
+            </DrawerFooter> */}
+          </DrawerContent>
+        </Drawer>
       </div>
 
       <div className="flex flex-col-reverse gap-5 lg:flex-row w-full justify-between">
