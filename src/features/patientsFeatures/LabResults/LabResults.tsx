@@ -57,11 +57,11 @@ const LabResults = ({ testResults }: { testResults: MonthlyData[] }) => {
         <table className="min-w-full border-collapse border border-gray-200 rounded-t-lg overflow-hidden">
           <thead>
             <tr className="bg-[#56bbe3] text-gray-200 text-start">
-              <th className="min-w-[15rem] py-2 px-4 border-b text-start">Test Name</th>
-              <th className="min-w-[8rem] py-2 px-4 border-b text-start">Date</th>
-              <th className="min-w-[19rem] py-2 px-4 border-b text-start">Results</th>
-              <th className="py-2 px-4 border-b text-start">Interpretation</th>
-              <th className="py-2 px-4 border-b text-start">Action</th>
+              <th className="min-w-[15rem] py-2 px-4 border text-start">Test Name</th>
+              <th className="min-w-[8rem] py-2 px-4 border text-start">Date</th>
+              <th className="min-w-[19rem] py-2 px-4 border text-start">Results</th>
+              <th className="py-2 px-4 border text-start">Interpretation</th>
+              <th className="py-2 px-4 border text-start">Action</th>
             </tr>
           </thead>
           <tbody>
