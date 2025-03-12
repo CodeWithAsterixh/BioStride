@@ -1,4 +1,4 @@
-import { ArrowLeft, ChevronLeft, ChevronRight, Eye, EyeOff } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Eye, EyeOff, UserRound } from "lucide-react";
 import BloodPressureChart from "../../../features/patientsFeatures/BloodPressureChart/BloodPressureChart";
 import DiagnosticList from "../../../features/patientsFeatures/DiagnosticList/DiagnosticList";
 import LabResults from "../../../features/patientsFeatures/LabResults/LabResults";
@@ -77,7 +77,7 @@ export default function PersonDetails({
           {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>
         <Drawer>
-          <DrawerTrigger className="md:hidden">Open</DrawerTrigger>
+          <DrawerTrigger className="md:hidden bg-[#56bbe3] py-1 px-6 rounded-full text-white hover:bg-opacity-35"> <UserRound className="h-7 w-7" /> </DrawerTrigger>
           <DrawerContent className="w-full h-[85%] bg-white dark:bg-darkComponentsBg rounded-t-[2rem] p-0">
             <DrawerPatientProfile/>
 
