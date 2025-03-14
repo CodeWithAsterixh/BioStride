@@ -17,15 +17,15 @@ export default function Patients() {
 
   const { patient_id } = useParams();
 
-  useEffect(() => {
-  console.log("Patient ID from URL:", patient_id);
-  const idNum = parseInt(patient_id || "0");
-  console.log("Parsed ID:", idNum);
-  const person = PatientData.find(
-    (person: Patient) => person.patient_id === idNum
-  );
-  console.log("Found Person:", person);
-  setSelectedPerson(person);
+    useEffect(() => {
+    console.log("Patient ID from URL:", patient_id);
+    const idNum = parseInt(patient_id || "0");
+    console.log("Parsed ID:", idNum);
+    const person = PatientData.find(
+      (person: Patient) => person.patient_id === idNum
+    );
+    console.log("Found Person:", person);
+    setSelectedPerson(person);
 }, [patient_id]);
 
   return (

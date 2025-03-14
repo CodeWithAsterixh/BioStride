@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 
 function PatientProfile({ person }: { person: PersonalData }) {
   return (
-    <Card className="min-w-[16rem] xl:min-w-[20rem]">
+    <Card className="min-w-[16rem] xl:min-w-[20rem] hidden md:block">
         <CardHeader>
             <CardTitle>Patient Information</CardTitle>
         </CardHeader>

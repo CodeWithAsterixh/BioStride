@@ -49,47 +49,56 @@ const LabResults = ({ testResults }: { testResults: MonthlyData[] }) => {
   };
 
   return (
-    <div className="border rounded shadow p-4 bg-white">
+    <div className="border dark:border-[#56bbe3] rounded-lg shadow p-4 bg-white dark:bg-darkComponentsBg">
       <div className="mb-4">
-        <h2 className="text-lg font-semibold">Lab Results</h2>
+        <h2 className="text-lg font-semibold dark:text-[#56bbe3]">Lab Results</h2>
       </div>
       <div className="overflow-auto h-auto">
-        <table className="min-w-full bg-white border border-gray-200">
+        <table className="min-w-full border-collapse border border-gray-200 rounded-t-lg overflow-hidden">
           <thead>
-            <tr className="bg-gray-100 text-start">
-              <th className="min-w-[15rem] py-2 px-4 border-b text-start">Test Name</th>
-              <th className="min-w-[8rem] py-2 px-4 border-b text-start">Date</th>
-              <th className="min-w-[19rem] py-2 px-4 border-b text-start">Results</th>
-              <th className="py-2 px-4 border-b text-start">Interpretation</th>
-              <th className="py-2 px-4 border-b text-start">Action</th>
+            <tr className="bg-[#56bbe3] text-gray-200 text-start">
+              <th className="min-w-[15rem] py-2 px-4 border text-start">Test Name</th>
+              <th className="min-w-[8rem] py-2 px-4 border text-start">Date</th>
+              <th className="min-w-[19rem] py-2 px-4 border text-start">Results</th>
+              <th className="py-2 px-4 border text-start">Interpretation</th>
+              <th className="py-2 px-4 border text-start">Action</th>
             </tr>
           </thead>
           <tbody>
-            {allLabTests.map((test, index) => (
-              <tr key={index} className="odd:bg-white even:bg-gray-50">
-                <td className="py-2 px-4 border-b">{test.test_name}</td>
-                <td className="py-2 px-4 border-b">{test.test_date}</td>
-                <td className="py-2 px-4 border-b">
-                  {(() => {
-                    const entries = Object.entries(test.results);
-                    if (entries.length === 0) return "No results";
-                    
-                    const [firstKey, firstValue] = entries[0];
-                    return `${firstKey}: ${firstValue.length > 30 ? firstValue.slice(0, 30) + '...' : firstValue} ${entries.length > 1 ? "..." : ""}`;
-                  })()}
-                </td>
-                <td className="py-2 px-4 border-b">{test.interpretation}</td>
-                <td className="py-2 px-4 border-b">
-                  <button
-                    className="flex items-center px-4 py-2 border border-[#56bbe3] rounded-full bg-opacity-90 bg-[#56bbe3] text-white hover:bg-[#2baadc]"
-                    onClick={() => handleDownload(test)}
-                  >
-                    <Download className="mr-2 h-4 w-4" />
-                    Download
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {allLabTests.length > 0 ? (
+              allLabTests.map((test, index) => (
+                <tr key={index} className="odd:bg-white dark:odd:bg-gray-600 even:bg-gray-100 dark:even:bg-[#56bbe3] dark:text-gray-200 dark:border-[#56bbe3] dark:even:bg-opacity-35">
+                  <td className="py-2 px-4 border">{test.test_name}</td>
+                  <td className="py-2 px-4 border">{test.test_date}</td>
+                  <td className="py-2 px-4 border">
+                    {(() => {
+                      const entries = Object.entries(test.results);
+                      if (entries.length === 0) return "No results";
+                      
+                      const [firstKey, firstValue] = entries[0];
+                      return `${firstKey}: ${firstValue.length > 30 ? firstValue.slice(0, 30) + '...' : firstValue} ${entries.length > 1 ? "..." : ""}`;
+                    })()}
+                  </td>
+                  <td className="py-2 px-4 border whitespace-nowrap">{test.interpretation}</td>
+                  <td className="py-2 px-4 border">
+                    <button
+                      className="flex items-center px-4 py-2 border border-[#56bbe3] rounded-full bg-opacity-90 bg-[#56bbe3] text-white hover:bg-[#2baadc]"
+                      onClick={() => handleDownload(test)}
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      Download
+                    </button>
+                  </td>
+                </tr>
+                ))
+              ) : (
+                <tr>
+                  <td colSpan={4} className="py-2 px-4 border-b">
+                    No lab tests found
+                  </td>
+                </tr>
+              )
+            }
           </tbody>
         </table>
       </div>

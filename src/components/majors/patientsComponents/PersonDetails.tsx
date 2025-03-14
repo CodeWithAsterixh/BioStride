@@ -3,11 +3,10 @@ import {
   Eye,
   EyeOff
 } from "lucide-react";
-import { useState } from "react";
+import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
 import BloodPressureChart from "../../../features/patientsFeatures/BloodPressureChart/BloodPressureChart";
 import DiagnosticList from "../../../features/patientsFeatures/DiagnosticList/DiagnosticList";
 import LabResults from "../../../features/patientsFeatures/LabResults/LabResults";
-import VitalSigns from "../../../features/patientsFeatures/vitalSigns/VitalSigns";
 import {
   MedicalHistory,
   PersonalData,
@@ -18,6 +17,10 @@ import { Card, CardContent, CardHeader, CardTitle } from "../../cards/Card";
 import FilterRange from "../../FilterType/FilterRange";
 import Loader from "../../Loader/Loader";
 import PatientProfile from "./PatientProfile";
+import VitalSigns from "../../../features/patientsFeatures/vitalSigns/VitalSigns";
+import { useState } from "react";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import DrawerPatientProfile from "./DrawerPatientProfile";
 
 interface PersonDetailsProps {
   person?: PersonalData | null;
@@ -97,7 +100,28 @@ export default function PersonDetails({
               Show Profile <EyeOff className="h-5 w-5" />
             </div>
           )}
+        <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem] hidden md:block">
+          {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>
+        <Drawer>
+          <DrawerTrigger className="md:hidden bg-[#56bbe3] py-1 px-6 rounded-full text-white hover:bg-opacity-35"> <UserRound className="h-7 w-7" /> </DrawerTrigger>
+          <DrawerContent className="w-full h-[85%] bg-white dark:bg-darkComponentsBg rounded-t-[2rem] p-0">
+            <DrawerPatientProfile/>
+
+            {/* <DrawerHeader>
+              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+              <DrawerDescription>This action cannot be undone.</DrawerDescription>
+            </DrawerHeader> */}
+            {/* <DrawerFooter>
+              <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">
+                  <Ellipsis />
+                </Button>
+              </DrawerClose>
+            </DrawerFooter> */}
+          </DrawerContent>
+        </Drawer>
       </div>
 
       <div className="flex flex-col-reverse gap-5 lg:flex-row w-full justify-between">
@@ -116,6 +140,25 @@ export default function PersonDetails({
                 disabledNext={selectedYearIndex === patientYearlyData.length - 1}
                 disabledPrev={selectedYearIndex === 0}
               />
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  onClick={handlePrevYear}
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  disabled={selectedYearIndex === 0}
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+
+                <span className="text-md font-semibold border-2 border-[#56bbe3] px-4 py-1 rounded-full text-[#56bbe3]">{selectedYear}</span>
+
+                <button
+                  onClick={handleNextYear}
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  disabled={selectedYearIndex === patientYearlyData.length - 1}
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
