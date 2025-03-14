@@ -99,7 +99,7 @@ export default function PersonDetails({
             <div className="flex items-center gap-2">
               Show Profile <EyeOff className="h-5 w-5" />
             </div>
-          )}
+          )}</Button>
         <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem] hidden md:block">
           {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>

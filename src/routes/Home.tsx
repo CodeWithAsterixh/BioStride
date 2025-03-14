@@ -3,15 +3,19 @@
 import {
   CalendarCheck2Icon,
   HeartPulseIcon,
+  LucideTimer,
   PersonStandingIcon,
+  Plus
 } from "lucide-react";
+import DatePicker from "react-datepicker";
+import ActivityReport from "../components/ActivityReport";
 import DashboardSectionContainer from "../components/DashboardSectionContainer/DashboardSectionContainer";
 import DashboardTrendCard from "../components/DashboardTrendCard/DashboardTrendCard";
-import PatientStatistics from "../components/PatientsStatistics";
-import Revenues from "../components/Revenues";
-import ActivityReport from "../components/ActivityReport";
 import DoctorsTable from "../components/DoctorsTable";
+import PatientStatistics from "../components/PatientsStatistics";
 import RecentPatientsTable from "../components/RecentPatients";
+import Revenues from "../components/Revenues";
+import { Button } from "@/components/buttons/Button";
 
 export default function Home() {
   return (
@@ -52,18 +56,29 @@ export default function Home() {
             <PatientStatistics />
             <Revenues />
           </div>
-          <div className="w-full *:!h-full *:!max-h-full grid lg:grid-cols-[3fr_2fr] gap-4">
+          <div className="w-full *:!h-full *:!max-h-full ">
             {/* Patient management summary */}
-            <RecentPatientsTable/>
-            <div className="w-full grid gap-4 grid-cols-1 min-[920px]:grid-cols-2 lg:grid-cols-1">
+            <RecentPatientsTable />
+            
+          </div>
+          <div className="w-full grid gap-4 grid-cols-1 sm:grid-cols-2">
               <ActivityReport />
               <DoctorsTable />
             </div>
-          </div>
         </main>
       </div>
       <div className="w-full h-full px-3 md:px-0 mb-16 md:pb-0">
-      <DashboardSectionContainer header={{ title: "Appointments" }} />
+        <DashboardSectionContainer header={{ title: "Appointments" }}>
+          <div className="w-full *:w-full *:!flex *:items-center *:justify-center *:*:!w-full">
+          <DatePicker inline showDisabledMonthNavigation calendarClassName="*:w-full w-full !bg-blue-100 !border-none !shadow-sm"/>
+          </div>
+          
+          <div className="w-full flex flex-col gap-2 items-center text-neutral-500 dark:text-neutral-300 justify-center">
+            <LucideTimer className="size-8 text-neutral-500"/>
+            <p>No appointment available</p>
+            <Button variant="solid" className="flex items-center  justify-center gap-3 py-2"><Plus/>Add new appointment</Button>
+          </div>
+        </DashboardSectionContainer>
       </div>
     </div>
   );

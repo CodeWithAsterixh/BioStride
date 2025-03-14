@@ -4,9 +4,8 @@ import { calculateAge } from "../../utils/lib/dateHandlers";
 import { Button } from "../buttons/Button";
 import DashboardSectionContainer from "../DashboardSectionContainer/DashboardSectionContainer";
 
-type Props = object;
 
-export default function RecentPatientsTable(props: Props) {
+export default function RecentPatientsTable() {
   return (
     <DashboardSectionContainer
       header={{
@@ -23,7 +22,7 @@ export default function RecentPatientsTable(props: Props) {
         mainSLotClass: "!max-w-full",
       }}
     >
-      <div className="max-w-[90vw] md:max-w-[calc(58vw-4rem)] min-[890px]:max-w-[calc(60vw-4rem)] min-[900px]:max-w-[calc(63vw-4rem)] lg:max-w-[calc(55vw-4rem)] min-w-0 flex flex-col overflow-auto scrollBar p-2">
+      <div className="w-full min-w-0 flex flex-col overflow-auto scrollBar p-2">
         <table className="table-fixed text-black dark:text-white bg-curve">
           <thead>
             <tr>
