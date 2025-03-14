@@ -71,7 +71,7 @@ const Navbar: React.FC = () => {
 
           <ThemeToggler/>
 
-          <button className="hidden lg:flex items-center justify-center gap-2">
+          <div className="hidden lg:flex items-center justify-center gap-2">
             <div className="w-auto h-auto flex items-center justify-center bg-white dark:bg-transparent rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
               <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
                 <img
@@ -90,7 +90,7 @@ const Navbar: React.FC = () => {
               <Settings />
               <EllipsisVertical />
             </button>
-          </button>
+          </div>
 
           {/* Hamburger menu for smaller screens */}
           <div className="lg:hidden text-gray-500 dark:text-gray-400">
@@ -144,7 +144,7 @@ const Navbar: React.FC = () => {
               </li>
             ))}
           </ul>
-          <button className="flex items-center justify-between w-full h-full max-h-[5rem] border-r-2 border-gray-400 dark:border-gray-600 pr-1">
+          <div className="flex items-center justify-between w-full h-full max-h-[5rem] border-r-2 border-gray-400 dark:border-gray-600 pr-1">
             <div className="w-auto h-auto flex items-center justify-center bg-white dark:bg-transparent rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
                 <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
                     <img 
@@ -162,7 +162,7 @@ const Navbar: React.FC = () => {
                 <Settings />
                 <EllipsisVertical />
             </button>  
-          </button>
+          </div>
         </nav>
       </div>
     </header>

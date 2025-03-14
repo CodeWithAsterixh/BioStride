@@ -1,69 +1,57 @@
-import { Area, AreaChart, Tooltip, XAxis } from "recharts";
+import { Cell, Pie, PieChart, ResponsiveContainer, Tooltip } from "recharts";
+import { PatientStatistics } from "../../../types";
 
-interface patientStats {
-  month:
-    | "jan"
-    | "feb"
-    | "mar"
-    | "apr"
-    | "may"
-    | "jun"
-    | "jul"
-    | "aug"
-    | "sep"
-    | "oct"
-    | "nov"
-    | "dec";
-  amt: number;
-}
-const data: patientStats[] = [
-  {
-    month: "jan",
-    amt: 20,
-  },
-  {
-    month: "feb",
-    amt: 40,
-  },
-  {
-    month: "mar",
-    amt: 26,
-  },
-  {
-    month: "apr",
-    amt: 50,
-  },
-];
+const COLORS = ["#005f6b", "#00b2cb", "#80dce5"];
 
-export default function PatientStatisticsChart() {
+export default function PatientStatisticsChart({
+  data,
+}: {
+  data: PatientStatistics[];
+}) {
+  // Aggregate the data across all records.
+  const aggregatedData = data.reduce(
+    (acc, item) => {
+      return {
+        adult: acc.adult + item.adult,
+        elderly: acc.elderly + item.elderly,
+        children: acc.children + item.children,
+      };
+    },
+    { adult: 0, elderly: 0, children: 0 }
+  );
+
+  const pieData = [
+    { name: "Adult", value: aggregatedData.adult },
+    { name: "Elderly", value: aggregatedData.elderly },
+    { name: "Children", value: aggregatedData.children },
+  ];
+
   return (
-    <AreaChart
-      width={300}
-      height={250}
-      data={data}
-      margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
-    >
-      <defs>
-        <linearGradient id="colorAmt" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="5%" stopColor="#9eccdf" stopOpacity={0.8} />
-          <stop offset="95%" stopColor="#56bbe3" stopOpacity={0} />
-        </linearGradient>
-      </defs>
-      <XAxis dataKey="month" className="capitalize" startOffset={0} />
-      <Tooltip contentStyle={{
-        backgroundColor:"#f8fafc",
-        borderRadius:"10px",
-        borderColor:"#56bbe3"
-      }}   />
-
-      <Area
-        type="monotone"
-        dataKey="amt"
-        stroke="#127aa3"
-        fillOpacity={1}
-        fill="url(#colorAmt)"
-        baseValue={0}
-      />
-    </AreaChart>
+    <ResponsiveContainer width="100%" height={200}>
+      <PieChart>
+        <Pie
+          data={pieData}
+          dataKey="value"
+          nameKey="name"
+          cx="50%"
+          cy="50%"
+          outerRadius={60}
+        >
+          {pieData.map((_entry, index) => (
+            <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+          ))}
+        </Pie>
+        <Tooltip
+          contentStyle={{
+            backgroundColor: "var(--primary-dark)",
+            border: "1px solid #ccc",
+            borderRadius: 10,
+            padding: "0.125rem 0.5rem",
+          }}
+          itemStyle={{ color: "#fff" }}
+          formatter={(value) => `${value}`}
+        />
+      </PieChart>
+    </ResponsiveContainer>
   );
 }
