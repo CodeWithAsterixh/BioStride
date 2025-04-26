@@ -1,80 +1,83 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import PatientData from "../../../datas/PatientData";
+import { SearchIcon } from "lucide-react";
 
-interface Person {
-  id: number;
-  name: string;
-  dob: string;
-  gender: string;
-  photo: string;
-}
 
-interface PeopleListProps {
-  onSelectPerson: (person: Person) => void;
-}
-
-const people: Person[] = [
-  { id: 1, name: "John Doe", dob: "1980-05-15", gender: "Male", photo: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" },
-  { id: 2, name: "Jane Smith", dob: "1992-08-22", gender: "Female", photo: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" },
-  { id: 3, name: "Bob Johnson", dob: "1975-11-30", gender: "Male", photo: "https://images.unsplash.com/photo-1651008376811-b90baee60c1f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w2NzIxNjl8MHwxfHNlYXJjaHwxfHxkb2N0b3J8ZW58MHx8fHwxNzM3NDQxMDUzfDA&ixlib=rb-4.0.3&q=80&w=1080" },
-  { id: 4, name: "John2 Doe", dob: "1980-05-15", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 5, name: "Jane2 Smith", dob: "1992-08-22", gender: "Female", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 6, name: "Bob2 Johnson", dob: "1975-11-30", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 7, name: "John3 Doe", dob: "1980-05-15", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 8, name: "Jane3 Smith", dob: "1992-08-22", gender: "Female", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 9, name: "Bob3 Johnson", dob: "1975-11-30", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 10, name: "John4 Doe", dob: "1980-05-15", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 11, name: "Jane4 Smith", dob: "1992-08-22", gender: "Female", photo: "/placeholder.svg?height=40&width=40" },
-  { id: 12, name: "Bob4 Johnson", dob: "1975-11-30", gender: "Male", photo: "/placeholder.svg?height=40&width=40" },
-];
-
-const PeopleList: React.FC<PeopleListProps> = ({ onSelectPerson }) => {
+const PeopleList: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState<string>("");
+  const {pathname} = useLocation()
+  const [currentId, setCurrentId] = useState<number>(0)
+  
 
-  const filteredPeople = people.filter((person) =>
-    person.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  useEffect(()=>{
+    const paths = pathname.split('/')
+    const currentRoute = paths[paths.length-1]
+    const cId = parseInt(currentRoute)
+
+    setCurrentId(cId)
+  
+  }, [pathname])
+
+  
+
+
+
+  const filteredPeople = PatientData.filter((person) => {
+    // person.name.toLowerCase().includes(searchTerm.toLowerCase())
+    const fullName = `${person.personal_data.first_name} ${person.personal_data.last_name}`.toLowerCase();
+    return fullName.includes(searchTerm.toLowerCase());
+  });
 
   return (
-    <div className="h-[100vh] flex flex-col bg-white pb-[3.5rem] md:pb-[6.5rem] md:rounded-r-2xl overflow-hidden">
+    <div className="h-screen md:min-h-[85vh] md:h-full lg:max-w-[18.5rem] flex flex-col bg-white dark:bg-darkComponentsBg shadow-lg pb-[3.5rem] md:pb-2 md:rounded-2xl overflow-y-auto">
       <div className="p-4 flex items-center">
-        <input
+        <div className="w-full h-10 px-4 border-2 border-[#56bbe3] cursor-pointer rounded-full dark:shadow-xl flex items-center gap-2">
+          <SearchIcon className="w-5 h-5 text-gray-400" />
+          <input
           type="text"
           placeholder="Search people..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 border-2 border-[#56bbe3] rounded-full outline-none"
-        />
+          className="w-full h-full outline-none bg-transparent dark:text-gray-300"
+          />
+        </div>
       </div>
-      <ul className="flex-1 overflow-auto">
+      <ul className="gap-1 flex flex-col overflow-auto no-scrollbar px-2">
         {filteredPeople.map((person) => (
-          <li
-            key={person.id}
-            className="px-4 py-3 hover:bg-gray-200 cursor-pointer flex items-center"
-            onClick={() => onSelectPerson(person)}
+          <Link
+            to={`/patients/${person.patient_id}`}
+            key={person.patient_id}
+            className={`px-4 py-3 ${currentId === person.patient_id ? "bg-[#56bbe3] bg-opacity-20" : "hover:bg-gray-100 dark:hover:bg-gray-600"} duration-300 cursor-pointer flex items-center rounded-md`}
           >
-            <div className="h-10 w-10 mr-3 rounded-full overflow-hidden flex items-center justify-center bg-gray-300">
-              {person.photo && person.photo.trim() !== "" ?  (
-                <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
+            {/* Directly accessing personal_data properties */}
+            <div className="flex items-center gap-2">
+              <div className="mr-1 rounded-full overflow-hidden flex items-center justify-center bg-gray-300">
+                {person.personal_data.image && person.personal_data.image.trim() !== "" ? (
+                  <div className="w-auto h-auto flex items-center justify-center bg-white rounded-full shadow-lg border-2 border-[#56bbe3] p-1">
                     <div className="user-image-container w-[2.3rem] h-[2.3rem] flex items-center justify-center bg-white rounded-full overflow-hidden">
-                        <img src={person.photo} alt={person.name} className="h-full w-full object-cover" />
+                      <img src={person.personal_data.image} alt={person.personal_data.first_name} className="h-full w-full object-cover" />
                     </div>
+                  </div>
+                ) : (
+                  <span className="text-gray-500">
+                    {person.personal_data.first_name
+                      .split(" ")
+                      .map((n) => n[0])
+                      .join("")}
+                  </span>
+                )}
+              </div>
+              <div>
+                <div className="font-semibold dark:text-[#56bbe3] text-sm">
+                  {person.personal_data.first_name} {person.personal_data.last_name}
                 </div>
-              ) : (
-                <span className="text-gray-500">
-                    {person.name
-                    .split(" ")
-                    .map((n) => n[0])
-                    .join("")}
-                </span>
-              )}
-            </div>
-            <div>
-              <div className="font-semibold">{person.name}</div>
-              <div className="text-sm text-gray-500">
-                {person.dob} | {person.gender}
+                <div className="text-sm text-gray-500 dark:text-gray-400">
+                  {person.personal_data.date_of_birth} | {person.personal_data.gender}
+                </div>
               </div>
             </div>
-          </li>
+          </Link>
         ))}
       </ul>
     </div>

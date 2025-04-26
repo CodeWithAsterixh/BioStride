@@ -1,31 +1,34 @@
-
-import { ArrowLeft, HeartPulse, LeafyGreen, NotebookTabs, ThermometerSun } from "lucide-react";
+import {
+  ArrowLeft,
+  Eye,
+  EyeOff
+} from "lucide-react";
+import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
+import BloodPressureChart from "../../../features/patientsFeatures/BloodPressureChart/BloodPressureChart";
+import DiagnosticList from "../../../features/patientsFeatures/DiagnosticList/DiagnosticList";
+import LabResults from "../../../features/patientsFeatures/LabResults/LabResults";
+import {
+  MedicalHistory,
+  PersonalData,
+  YearlyData,
+} from "../../../types/patientstypes";
 import { Button } from "../../buttons/Button";
-import { Avatar, AvatarFallback, AvatarImage } from "../../Avatars/Avatar";
 import { Card, CardContent, CardHeader, CardTitle } from "../../cards/Card";
-import BloodPressureChart from "../../../features/BloodPressureChart/BloodPressureChart";
-import DiagnosticList from "../../../features/DiagnosticList/DiagnosticList";
-import LabResults from "../../../features/LabResults/LabResults";
-
-
-interface Person {
-  photo: string;
-  name: string;
-  dob: string;
-  gender: string;
-  contact?: string;
-  emergencyContact?: string;
-  insuranceProvider?: string;
-  respiratoryRate?: number | string;
-  temperature?: number | string;
-  heartRate?: number | string;
-}
+import FilterRange from "../../FilterType/FilterRange";
+import Loader from "../../Loader/Loader";
+import PatientProfile from "./PatientProfile";
+import VitalSigns from "../../../features/patientsFeatures/vitalSigns/VitalSigns";
+import { useState } from "react";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import DrawerPatientProfile from "./DrawerPatientProfile";
 
 interface PersonDetailsProps {
-  person?: Person | null; // Allow null as a valid type
+  person?: PersonalData | null;
   showAllInfo: boolean;
   setShowAllInfo: (show: boolean) => void;
   toggleSidebar: () => void;
+  patientHistory: MedicalHistory;
+  patientYearlyData: YearlyData[];
 }
 
 export default function PersonDetails({
@@ -33,105 +36,141 @@ export default function PersonDetails({
   showAllInfo,
   setShowAllInfo,
   toggleSidebar,
+  patientHistory,
+  patientYearlyData,
 }: PersonDetailsProps) {
+  // Get the current year
+  const currentYear = new Date().getFullYear().toString();
+
+  // Find the index of the current year in the data
+  const initialYearIndex = patientYearlyData.findIndex(
+    (data) => data.year.toString() === currentYear
+  );
+
+  // Set the initial state to the current year's index (or 0 if not found)
+  const [selectedYearIndex, setSelectedYearIndex] = useState<number>(
+    initialYearIndex !== -1 ? initialYearIndex : 0
+  );
+
+  const selectedYear = patientYearlyData[selectedYearIndex].year;
+  const filteredData = patientYearlyData[selectedYearIndex].monthly_data;
+
+  const handlePrevYear = () => {
+    if (selectedYearIndex > 0) {
+      setSelectedYearIndex(selectedYearIndex - 1);
+    }
+  };
+
+  const handleNextYear = () => {
+    if (selectedYearIndex < patientYearlyData.length - 1) {
+      setSelectedYearIndex(selectedYearIndex + 1);
+    }
+  };
+
   if (!person) {
+    console.log(person);
     return (
-      <div className="h-full flex items-center justify-center bg-[#d7eef8] md:bg-transparent">
-        <Button variant="outline" className="md:hidden mb-4 flex items-center text-lg rounded-full bg-[#56bbe3] hover:bg-[#2baadc] text-white" onClick={toggleSidebar}>
-          <NotebookTabs className="h-9 w-9 mr-2 text-white hover:text-white" />
-          <span className="text-white hover:text-white">Select a person</span>
-        </Button>
+      <div className="h-screen flex items-center justify-center ">
+        <Loader />
       </div>
     );
   }
 
   return (
-    <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-[4rem] md:pb-[7.5rem]">
+    <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-[4rem] dark:bg-darkComponentsBg">
       <div className="flex justify-between items-center">
-        <Button variant="outline" className="md:hidden flex items-center gap-3 bg-white" onClick={toggleSidebar}>
+        <Button
+          variant="outline"
+          className="md:hidden flex items-center gap-2 bg-white rounded-full py-2"
+          onClick={toggleSidebar}
+        >
           <ArrowLeft className="h-5 w-5" />
           People List
         </Button>
-        <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto text-sm rounded-full">
-          {showAllInfo ? "Show Summary" : "Show All Information"}
+        <Button
+          onClick={() => setShowAllInfo(!showAllInfo)}
+          className="ml-auto rounded-full py-[0.57rem]"
+        >
+          {showAllInfo ? (
+            <div className="flex items-center gap-2">
+              Hide Profile <Eye className="h-5 w-5" />
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              Show Profile <EyeOff className="h-5 w-5" />
+            </div>
+          )}</Button>
+        <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem] hidden md:block">
+          {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>
+        <Drawer>
+          <DrawerTrigger className="md:hidden bg-[#56bbe3] py-1 px-6 rounded-full text-white hover:bg-opacity-35"> <UserRound className="h-7 w-7" /> </DrawerTrigger>
+          <DrawerContent className="w-full h-[85%] bg-white dark:bg-darkComponentsBg rounded-t-[2rem] p-0">
+            <DrawerPatientProfile/>
+
+            {/* <DrawerHeader>
+              <DrawerTitle>Are you absolutely sure?</DrawerTitle>
+              <DrawerDescription>This action cannot be undone.</DrawerDescription>
+            </DrawerHeader> */}
+            {/* <DrawerFooter>
+              <Button>Submit</Button>
+              <DrawerClose>
+                <Button variant="outline">
+                  <Ellipsis />
+                </Button>
+              </DrawerClose>
+            </DrawerFooter> */}
+          </DrawerContent>
+        </Drawer>
       </div>
 
-      <div className="flex gap-3 md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4 bg-[#d7eef8]">
-        <Avatar className="h-20 w-20 ">
-          <AvatarImage src={person.photo} alt={person.name} />
-          <AvatarFallback>
-            {person.name
-              .split(" ")
-              .map((n) => n[0])
-              .join("")}
-          </AvatarFallback>
-        </Avatar>
-        <div>
-          <h2 className="text-2xl font-bold">{person.name}</h2>
-          <p className="text-gray-500">
-            {person.dob} | {person.gender}
-          </p>
-        </div>
-      </div>
-
-      {showAllInfo && (
-        <Card>
+      <div className="flex flex-col-reverse gap-5 lg:flex-row w-full justify-between">
+        <Card className="w-full">
           <CardHeader>
-            <CardTitle>Patient Information</CardTitle>
+            <div className="flex items-center gap-2 justify-between">
+              <CardTitle>Vital Signs</CardTitle>
+              {/* Year Selector with Icons */}
+              <FilterRange
+                
+                currentValue={`${selectedYear}`}
+                actions={{
+                  next:handleNextYear,
+                  prev:handlePrevYear,
+                }}
+                disabledNext={selectedYearIndex === patientYearlyData.length - 1}
+                disabledPrev={selectedYearIndex === 0}
+              />
+              <div className="flex items-center justify-center gap-2">
+                <button
+                  onClick={handlePrevYear}
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  disabled={selectedYearIndex === 0}
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+
+                <span className="text-md font-semibold border-2 border-[#56bbe3] px-4 py-1 rounded-full text-[#56bbe3]">{selectedYear}</span>
+
+                <button
+                  onClick={handleNextYear}
+                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
+                  disabled={selectedYearIndex === patientYearlyData.length - 1}
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </div>
+            </div>
           </CardHeader>
-          <CardContent>
-            <p>
-              <strong>Contact:</strong> {person.contact || "N/A"}
-            </p>
-            <p>
-              <strong>Emergency Contact:</strong> {person.emergencyContact || "N/A"}
-            </p>
-            <p>
-              <strong>Insurance Provider:</strong> {person.insuranceProvider || "N/A"}
-            </p>
+          <CardContent className="space-y-4">
+            <BloodPressureChart selectedDatas={filteredData} />
+            <VitalSigns />
           </CardContent>
         </Card>
-      )}
 
-      <Card>
-        <CardHeader>
-          <CardTitle>Vital Signs</CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <BloodPressureChart />
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-3">
-            <div className="bg-[#00b2cb] p-4 rounded-lg bg-opacity-30 shadow-sm flex flex-col justify-between gap-3">
-              <div className="flex items-center justify-center w-[4rem] h-[4rem] bg-white rounded-full"><LeafyGreen size={29} className="text-[#00b2cb] text-opacity-40"/></div>
-              <div>
-                <h4 className="">Respiratory Rate</h4>
-                <p className="font-bold">{person.respiratoryRate || "N/A"} bpm</p>
-              </div>
-              <p>Normal</p>
-            </div>
-
-            <div className="bg-[#ff5d00] p-4 rounded-lg bg-opacity-20 shadow-sm flex flex-col justify-between gap-3">
-              <div className="flex items-center justify-center w-[4rem] h-[4rem] bg-white rounded-full"><ThermometerSun size={29} className="text-[#ff5d00] text-opacity-40"/></div>
-              <div>
-                <h4 className="">Temperature</h4>
-                <p className="font-bold">{person.temperature || "N/A"} °F</p>
-              </div>
-              <p>Normal</p>
-            </div>
-            <div className="bg-red-500 pl-4 py-4 rounded-lg bg-opacity-20 shadow-sm flex flex-col justify-between gap-3">
-              <div className="flex items-center justify-center w-[4rem] h-[4rem] bg-white rounded-full"><HeartPulse size={29} className="text-red-500 text-opacity-50"/></div>
-              <div>
-                <h4 className="">Heart Rate</h4>
-                <p className="font-bold">{person.heartRate || "N/A"} bpm</p>
-              </div>
-              <p className="text-sm">Lower Than Average</p>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <DiagnosticList />
-      <LabResults />
+        {showAllInfo && <PatientProfile person={person} />}
+      </div>
+      <DiagnosticList history={patientHistory} />
+      <LabResults testResults={filteredData} />
     </div>
   );
 }

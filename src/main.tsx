@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
+import "./assets/styles/components.css"
 
 import {
   createBrowserRouter,
@@ -13,9 +14,12 @@ import {
   NotFoundPage,
   Root,
   MainLayout,
+  PatientsLayout,
   Home,
   Patients,
 } from "./App";
+import { ThemeProvider } from "./contexts/ThemeContext";
+// import PatientsLayout from "./Layouts/PagesLayout/PatientsLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +31,9 @@ const router = createBrowserRouter(
       <Route element={<MainLayout />}>
         {/* Pages with header and footer */}
         <Route index element={<Home />} />
-        <Route path="patients" element={<Patients />} />
+        <Route path="/patients" element={<PatientsLayout />}>
+          <Route path=":patient_id" element={<Patients />} />
+        </Route>
       </Route>
     </Route>
   )
@@ -35,6 +41,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 );

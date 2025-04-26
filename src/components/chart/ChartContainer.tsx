@@ -17,11 +17,11 @@ export const ChartContainer: React.FC<ChartContainerProps> = ({ config, classNam
   return (
     <div className={className}>
       {/* Example: Render a legend using the config */}
-      <div className="flex space-r-4 mb-4">
+      <div className="flex gap-2 space-r-4 mb-4">
         {Object.entries(config).map(([key, { label, color }]) => (
-          <div key={key} className="flex items-center">
-            <div className="w-4 h-4 mx-2" style={{ backgroundColor: color }}></div>
-            <span>{label}</span>
+          <div key={key} className="flex gap-1 items-center">
+            <div className="w-4 h-4" style={{ backgroundColor: color }}></div>
+            <span className='dark:text-white'>{label}</span>
           </div>
         ))}
       </div>
