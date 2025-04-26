@@ -8,9 +8,8 @@ import DashboardSectionContainer from "../DashboardSectionContainer/DashboardSec
 import { Card } from "../cards/Card";
 import { Button } from "../buttons/Button";
 
-type Props = object;
 
-export default function ActivityReport(props: Props) {
+export default function ActivityReport() {
   return (
     <DashboardSectionContainer
       sx={{
