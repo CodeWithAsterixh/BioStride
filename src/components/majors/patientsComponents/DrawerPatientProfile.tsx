@@ -40,9 +40,17 @@ function DrawerPatientProfile() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col gap-4 h-full w-full bg-white dark:bg-darkComponentsBg pt-[2rem] px-4">
-        <div className="flex flex-col items-start justify-center pt-[1.8rem] w-full">
-          <DrawerTitle className="text-2xl text-[#56bbe3] font-bold">Are you absolutely sure?</DrawerTitle>
+      <div className="flex flex-col gap-3 h-full w-full bg-white dark:bg-darkComponentsBg pt-[2rem] px-4">
+        <div className="flex items-center justify-between pt-[1.8rem] w-full rounded-lg px-2 pb-4 border-b-2 dark:border-[#56bbe3]">
+          <div className="flex flex-col items-start justify-center">
+            <DrawerTitle className="text-2xl text-[#56bbe3] font-bold">John Doe</DrawerTitle>
+            <p className=" text-gray-500 dark:text-white">gendar - Yrs 6 mos</p>
+          </div>
+          <p className="border px-4 py-2 border-[#56bbe3] text-[#56bbe3]">135646573657</p>
+        </div>
+        <div className="flex flex-col items-start justify-center pt-4 w-full">
+          <p className="text-sm text-[#56bbe3] font-semibold">Address</p>
+          <p>123 Main Street, Anytown USA</p>
         </div>
       </div>
     </div>

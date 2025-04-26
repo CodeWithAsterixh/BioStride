@@ -3,7 +3,7 @@ import {
   Eye,
   EyeOff
 } from "lucide-react";
-import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
+import { UserRound } from "lucide-react";
 import BloodPressureChart from "../../../features/patientsFeatures/BloodPressureChart/BloodPressureChart";
 import DiagnosticList from "../../../features/patientsFeatures/DiagnosticList/DiagnosticList";
 import LabResults from "../../../features/patientsFeatures/LabResults/LabResults";
@@ -87,19 +87,6 @@ export default function PersonDetails({
           <ArrowLeft className="h-5 w-5" />
           People List
         </Button>
-        <Button
-          onClick={() => setShowAllInfo(!showAllInfo)}
-          className="ml-auto rounded-full py-[0.57rem]"
-        >
-          {showAllInfo ? (
-            <div className="flex items-center gap-2">
-              Hide Profile <Eye className="h-5 w-5" />
-            </div>
-          ) : (
-            <div className="flex items-center gap-2">
-              Show Profile <EyeOff className="h-5 w-5" />
-            </div>
-          )}</Button>
         <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem] hidden md:block">
           {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>
@@ -140,25 +127,6 @@ export default function PersonDetails({
                 disabledNext={selectedYearIndex === patientYearlyData.length - 1}
                 disabledPrev={selectedYearIndex === 0}
               />
-              <div className="flex items-center justify-center gap-2">
-                <button
-                  onClick={handlePrevYear}
-                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
-                  disabled={selectedYearIndex === 0}
-                >
-                  <ChevronLeft className="w-6 h-6" />
-                </button>
-
-                <span className="text-md font-semibold border-2 border-[#56bbe3] px-4 py-1 rounded-full text-[#56bbe3]">{selectedYear}</span>
-
-                <button
-                  onClick={handleNextYear}
-                  className="px-4 py-1 bg-[#56bbe3] border-2 border-[#56bbe3] text-white rounded-full hover:bg-[#388aaa] hover:border-opacity-25 disabled:bg-transparent disabled:text-[#56bbe3] disabled:text-opacity-50 disabled:border-2 disabled:border-[#56bbe3] disabled:border-opacity-50"
-                  disabled={selectedYearIndex === patientYearlyData.length - 1}
-                >
-                  <ChevronRight className="w-6 h-6" />
-                </button>
-              </div>
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
