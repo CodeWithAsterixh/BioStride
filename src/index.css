@@ -38,6 +38,19 @@ body {
   width: 100% !important;
 }
 
+.DarkModeBg{
+  background-color: #1e293b;
+}
+
+/* button click effect */
+
+.buttonEffect:active{
+  scale: .95;
+  transition-duration: 200ms;
+  position: relative;
+}
+
+
 /* Responsive styles for the datepicker */
 .responsive-datepicker {
   font-size: 14px; /* Base font size */

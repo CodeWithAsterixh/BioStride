@@ -1,0 +1,85 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* place your styles here */
+/* filter type style for the component file /components/FilterType/FilterType.tsx */
+.filterType {
+  @apply w-full min-[498px]:w-fit bg-primary/10 data-[selected=true]:bg-primary-dark text-primary data-[selected=true]:text-white capitalize px-3 py-1 first:!rounded-l-md first:data-[selected=true]:!rounded-r-sm last:!rounded-r-md last:data-[selected=true]:!rounded-l-sm data-[selected=true]:rounded-sm duration-200 cursor-pointer;
+}
+
+/* revenue type style for ul>li in the component file /components/Revenues/Revenues.tsx */
+.revenueType {
+  @apply relative flex items-center gap-2 before:relative before:content-[''] before:size-2 before:rounded-full;
+}
+
+/* chart color for theme changes */
+:root {
+  --chart-color-text: #262626;
+  --chart-color-bg: #e5e5e5;
+  --chart-color-deep: #005f6b;
+  --chart-color-medium: #00b2cb;
+  --chart-color-light: #80dce5;
+  --chart-border-color: #ccc;
+  --chart-stroke-color: #e0e0e0;
+}
+
+.dark {
+  --chart-color-text: #e5e5e5;
+  --chart-color-bg: #262626;
+  --chart-border-color: #444;
+  --chart-stroke-color: #555;
+}
+
+/* scroll */
+
+.scrollBar::-webkit-scrollbar {
+  @apply w-1 h-1;
+}
+.scrollBar::-webkit-scrollbar-thumb {
+  @apply bg-neutral-300 dark:bg-slate-600 rounded-full;
+}
+
+/* Table with padding 2 and curves */
+
+
+
+.bg-curve{
+  @apply min-w-[640px]
+}
+
+.bg-curve thead tr{
+  @apply relative dark:*:border-slate-800 *:border-white *:truncate *:p-2 dark:*:!bg-slate-700 *:!bg-neutral-200;
+}
+.bg-curve thead tr th:first-child{
+  @apply rounded-tl-md;
+}
+.bg-curve thead tr th:last-child{
+  @apply rounded-r-md;
+}
+.bg-curve thead tr th{
+  @apply relative;
+}
+.bg-curve thead tr th:not(:nth-child(1)):before{
+  @apply content-[''] absolute bottom-[0px] left-0 w-full h-[4px] bg-white dark:bg-slate-800;
+}
+.bg-curve tbody tr td{
+  @apply bg-neutral-200 dark:bg-slate-900 truncate p-2 duration-300;
+}
+.bg-curve tbody tr:hover >*{
+  @apply bg-neutral-200/60 dark:bg-slate-900/60;
+}
+.bg-curve tbody tr:last-child > *:last-child{
+  @apply rounded-br-md;
+}
+
+.bg-curve tbody tr:last-child > *:first-child{
+  @apply rounded-bl-md;
+}
+.bg-curve tbody tr td{
+  @apply relative
+}
+.bg-curve tbody tr td:nth-child(2):before{
+  @apply content-[''] absolute top-[0px] left-0 w-[4px] h-full bg-white dark:bg-slate-800;
+}
+

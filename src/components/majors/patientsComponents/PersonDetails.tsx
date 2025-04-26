@@ -1,11 +1,21 @@
-import { ArrowLeft, ChevronLeft, ChevronRight, Eye, EyeOff, UserRound } from "lucide-react";
+import {
+  ArrowLeft,
+  Eye,
+  EyeOff
+} from "lucide-react";
+import { ChevronLeft, ChevronRight, UserRound } from "lucide-react";
 import BloodPressureChart from "../../../features/patientsFeatures/BloodPressureChart/BloodPressureChart";
 import DiagnosticList from "../../../features/patientsFeatures/DiagnosticList/DiagnosticList";
 import LabResults from "../../../features/patientsFeatures/LabResults/LabResults";
+import {
+  MedicalHistory,
+  PersonalData,
+  YearlyData,
+} from "../../../types/patientstypes";
 import { Button } from "../../buttons/Button";
 import { Card, CardContent, CardHeader, CardTitle } from "../../cards/Card";
+import FilterRange from "../../FilterType/FilterRange";
 import Loader from "../../Loader/Loader";
-import { MedicalHistory, PersonalData, YearlyData } from "../../../types/patientstypes";
 import PatientProfile from "./PatientProfile";
 import VitalSigns from "../../../features/patientsFeatures/vitalSigns/VitalSigns";
 import { useState } from "react";
@@ -13,7 +23,7 @@ import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import DrawerPatientProfile from "./DrawerPatientProfile";
 
 interface PersonDetailsProps {
-  person?: PersonalData | null;  
+  person?: PersonalData | null;
   showAllInfo: boolean;
   setShowAllInfo: (show: boolean) => void;
   toggleSidebar: () => void;
@@ -58,10 +68,10 @@ export default function PersonDetails({
   };
 
   if (!person) {
-    console.log(person)
+    console.log(person);
     return (
       <div className="h-screen flex items-center justify-center ">
-        <Loader/>
+        <Loader />
       </div>
     );
   }
@@ -69,10 +79,27 @@ export default function PersonDetails({
   return (
     <div className="p-4 md:p-6 space-y-4 md:space-y-6 pb-[4rem] dark:bg-darkComponentsBg">
       <div className="flex justify-between items-center">
-        <Button variant="outline" className="md:hidden flex items-center gap-2 bg-white rounded-full py-2" onClick={toggleSidebar}>
+        <Button
+          variant="outline"
+          className="md:hidden flex items-center gap-2 bg-white rounded-full py-2"
+          onClick={toggleSidebar}
+        >
           <ArrowLeft className="h-5 w-5" />
           People List
         </Button>
+        <Button
+          onClick={() => setShowAllInfo(!showAllInfo)}
+          className="ml-auto rounded-full py-[0.57rem]"
+        >
+          {showAllInfo ? (
+            <div className="flex items-center gap-2">
+              Hide Profile <Eye className="h-5 w-5" />
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              Show Profile <EyeOff className="h-5 w-5" />
+            </div>
+          )}</Button>
         <Button onClick={() => setShowAllInfo(!showAllInfo)} className="ml-auto rounded-full py-[0.57rem] hidden md:block">
           {showAllInfo ? ( <div className="flex items-center gap-2">Hide Profile <Eye className="h-5 w-5" /></div>) : ( <div className="flex items-center gap-2">Show Profile  <EyeOff className="h-5 w-5" /></div>)}
         </Button>
@@ -103,6 +130,16 @@ export default function PersonDetails({
             <div className="flex items-center gap-2 justify-between">
               <CardTitle>Vital Signs</CardTitle>
               {/* Year Selector with Icons */}
+              <FilterRange
+                
+                currentValue={`${selectedYear}`}
+                actions={{
+                  next:handleNextYear,
+                  prev:handlePrevYear,
+                }}
+                disabledNext={selectedYearIndex === patientYearlyData.length - 1}
+                disabledPrev={selectedYearIndex === 0}
+              />
               <div className="flex items-center justify-center gap-2">
                 <button
                   onClick={handlePrevYear}
@@ -125,14 +162,12 @@ export default function PersonDetails({
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            <BloodPressureChart selectedDatas={filteredData}/>
-            <VitalSigns/>
+            <BloodPressureChart selectedDatas={filteredData} />
+            <VitalSigns />
           </CardContent>
         </Card>
 
-        {showAllInfo && (
-          <PatientProfile person={person} />
-        )}
+        {showAllInfo && <PatientProfile person={person} />}
       </div>
       <DiagnosticList history={patientHistory} />
       <LabResults testResults={filteredData} />

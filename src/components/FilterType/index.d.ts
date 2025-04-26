@@ -1,0 +1,1 @@
+export type filterTypes = "day" | "month" | "year";
