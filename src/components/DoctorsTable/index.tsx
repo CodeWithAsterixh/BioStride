@@ -1,14 +1,13 @@
 import { BriefcaseMedical, EllipsisVertical } from "lucide-react";
 import { doctors } from "../../utils/dummyDoctor";
-import { isWithinWorkSchedule } from "../../utils/lib/isWithinWOrkSchedule";
 import { formatHour } from "../../utils/lib/timeMethods";
 import DashboardSectionContainer from "../DashboardSectionContainer/DashboardSectionContainer";
 import { Button } from "../buttons/Button";
 import { Card } from "../cards/Card";
+import { isWithinWorkSchedule } from "@/utils/lib/isWithinWorkSchedule";
 
-type Props = object;
 
-export default function DoctorsTable(props: Props) {
+export default function DoctorsTable() {
   return (
     <DashboardSectionContainer
       sx={{
