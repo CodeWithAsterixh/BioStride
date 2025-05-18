@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root{
+:root {
   --primary: #56bbe3;
   --primary-dark: #00b2cb;
   --darkComponentsBg: #1e293b;
@@ -27,29 +27,28 @@ body {
 /* rechart pie focus */
 .recharts-layer.recharts-pie,
 .recharts-sector:focus {
-    outline: none !important;
-    outline-color: none;
-    outline-style: none;
-    outline-width: none;
+  outline: none !important;
+  outline-color: none;
+  outline-style: none;
+  outline-width: none;
 }
 
 /* layer change */
-.recharts-surface{
+.recharts-surface {
   width: 100% !important;
 }
 
-.DarkModeBg{
+.DarkModeBg {
   background-color: #1e293b;
 }
 
 /* button click effect */
 
-.buttonEffect:active{
-  scale: .95;
+.buttonEffect:active {
+  scale: 0.95;
   transition-duration: 200ms;
   position: relative;
 }
-
 
 /* Responsive styles for the datepicker */
 .responsive-datepicker {
@@ -79,11 +78,10 @@ body {
 }
 
 @media only screen and (min-width: 414px) {
-  .DrawerImageContainer{
+  .DrawerImageContainer {
     margin-top: -19rem;
   }
 }
-
 
 /* Adjust calendar for very small screens */
 @media only screen and (max-width: 480px) {
@@ -98,57 +96,130 @@ body {
 }
 
 @media only screen and (max-width: 436px) {
-  .DrawerImageContainer{
+  .DrawerImageContainer {
     margin-top: -30rem;
   }
 }
 
 @media only screen and (max-width: 429px) {
-  .DrawerImageContainer{
+  .DrawerImageContainer {
     margin-top: -21rem;
   }
 }
 
 @media only screen and (max-width: 413px) {
-  .DrawerImageContainer{
+  .DrawerImageContainer {
     margin-top: -25rem;
   }
 }
 
 @media only screen and (max-width: 400px) {
-   .DrawerImageContainer{
-     margin-top: -21.5rem;
-   }
+  .DrawerImageContainer {
+    margin-top: -21.5rem;
+  }
 }
 
 @media only screen and (max-width: 391px) {
-   .DrawerImageContainer{
-     margin-top: -16.8rem;
-   }
+  .DrawerImageContainer {
+    margin-top: -16.8rem;
+  }
 }
 
 @media only screen and (max-width: 376px) {
-    .DrawerImageContainer{
-      margin-top: -15rem;
-    }
+  .DrawerImageContainer {
+    margin-top: -15rem;
+  }
 }
 
 @media only screen and (max-width: 369px) {
-  .DrawerImageContainer{
+  .DrawerImageContainer {
     margin-top: -19rem;
   }
 }
 
 @media only screen and (max-width: 320px) {
   body {
-  font-size: x-small;
-  font-weight: 200;
-}
-  .DrawerImageContainer{
+    font-size: x-small;
+    font-weight: 200;
+  }
+  .DrawerImageContainer {
     margin-top: -5rem;
   }
 }
 
 .bottomShadow {
   box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+}
+.appointment-date-picker-container {
+  @apply w-full *:w-full *:items-center *:justify-center *:*:!w-full;
+}
+.appointment-date-picker-container > * {
+  @apply !flex;
+}
+.appointment-date-picker {
+  @apply !border-none !shadow-sm *:w-full w-full !bg-blue-100 dark:!bg-slate-900;
+}
+.appointment-date-picker .react-datepicker__navigation {
+  @apply !top-2.5;
+}
+.appointment-date-picker .react-datepicker__header {
+  @apply !bg-primary dark:!bg-primary-dark;
+}
+.appointment-date-picker
+  .react-datepicker__header
+  .react-datepicker__current-month {
+  @apply !py-2 dark:!text-white;
+}
+.appointment-date-picker
+  .react-datepicker__header
+  .react-datepicker__day-names {
+  @apply !py-2 *:dark:!text-white;
+}
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day {
+  @apply !text-black dark:!text-white duration-300;
+}
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day:hover {
+  @apply !bg-primary/50 dark:!bg-primary-dark/50;
+}
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day.react-datepicker__day--weekend {
+  @apply !text-primary-dark dark:!text-primary-dark;
+}
+
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day.react-datepicker__day--keyboard-selected {
+  @apply !bg-primary dark:!bg-primary-dark !text-black dark:!text-white;
+}
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day.react-datepicker__day--keyboard-selected {
+  box-shadow: 
+    1px 1px 5px rgb(0 0 0 / 0.1),
+    1px -1px 5px rgb(0 0 0 / 0.1),
+    -1px 1px 5px rgb(0 0 0 / 0.1),
+    -1px -1px 5px rgb(0 0 0 / 0.1)
+  ;
+}
+
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day.react-datepicker__day--weekend:hover {
+  @apply !text-black dark:!text-white;
+}
+
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day.react-datepicker__day--outside-month {
+  @apply !text-black/50 dark:!text-white/50;
+}
+.appointment-date-picker
+  .react-datepicker__month-container
+  .react-datepicker__day.react-datepicker__day--outside-month:hover {
+  @apply !bg-slate-400 dark:!bg-slate-950;
 }

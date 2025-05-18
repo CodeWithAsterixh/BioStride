@@ -61,7 +61,7 @@ export default function Home() {
             <RecentPatientsTable />
             
           </div>
-          <div className="w-full grid gap-4 grid-cols-1 sm:grid-cols-2">
+          <div className="w-full grid gap-4 grid-cols-1 sm:grid-cols-[repeat(auto-fit,_minmax(300px,_1fr))]">
               <ActivityReport />
               <DoctorsTable />
             </div>
@@ -69,8 +69,8 @@ export default function Home() {
       </div>
       <div className="w-full h-full px-3 md:px-0 mb-16 md:pb-0">
         <DashboardSectionContainer header={{ title: "Appointments" }}>
-          <div className="w-full *:w-full *:!flex *:items-center *:justify-center *:*:!w-full">
-          <DatePicker inline showDisabledMonthNavigation calendarClassName="*:w-full w-full !bg-blue-100 !border-none !shadow-sm"/>
+          <div className="appointment-date-picker-container">
+          <DatePicker inline showDisabledMonthNavigation calendarClassName="appointment-date-picker"/>
           </div>
           
           <div className="w-full flex flex-col gap-2 items-center text-neutral-500 dark:text-neutral-300 justify-center">
